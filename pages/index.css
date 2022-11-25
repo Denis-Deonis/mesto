@@ -11,7 +11,9 @@
 @import url(../blocks/header/__logo/header__logo.css);
 /* </header> */
 
-
+/* <content> */
+@import url(../blocks/content/content.css);
+/* </content> */
 
 
 
