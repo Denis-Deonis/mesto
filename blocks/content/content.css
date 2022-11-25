@@ -1,0 +1,7 @@
+.content {
+  width: 100%;
+  margin-top: 40px;
+
+    /* удалить */
+    outline: 1px solid red;
+}
