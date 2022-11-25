@@ -3,5 +3,6 @@
   min-height: 120px;
   display: grid;
   grid-template-columns: 120px auto 150px;
-  
+  align-items: center;
+  gap: 30px;
 }
