@@ -38,64 +38,50 @@
       <section class="elements">
         <ul class="elements__list">
           <li class="element">
-            <img class="element__image"
-              src="./images/elements/Karachaevsk.jpg"
-              alt="Фотография с видом на каменный старинный храм, который расположен на горе"
-              >
+            <img class="element__image" src="./images/elements/Karachaevsk.jpg"
+              alt="Фотография с видом на каменный старинный храм, который расположен на горе">
             <div class="element__group">
               <h2 class="element__title">Карачаевск</h2>
               <button class="element__like-button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image"
-              src="./images/elements/Elbrus.jpg"
-              alt="Фотография зари с видом на поле и на заднем плане виден силует горы Эльбрус"
-              >
+            <img class="element__image" src="./images/elements/Elbrus.jpg"
+              alt="Фотография зари с видом на поле и на заднем плане виден силует горы Эльбрус">
             <div class="element__group">
               <h2 class="element__title">Гора Эльбрус</h2>
-              <button class="element__like-button"  type="button" aria-label="Лайк"></button>
+              <button class="element__like-button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image"
-              src="./images/elements/Dombay.jpg"
-              alt="Фотография с видом на комплекс гор.
+            <img class="element__image" src="./images/elements/Dombay.jpg" alt="Фотография с видом на комплекс гор.
               На переднем плане еловый лес. На заднем плане каменистая гора на котором местами расположен снег.
-              А сверху пасмурное небою"
-              >
+              А сверху пасмурное небою">
             <div class="element__group">
               <h2 class="element__title">Домбай</h2>
-              <button class="element__like-button"  type="button" aria-label="Лайк"></button>
+              <button class="element__like-button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image"
-              src="./images/elements/Elbrus.jpg"
-              alt="Фотография зари с видом на поле и на заднем плане виден силует горы Эльбрус"
-              >
+            <img class="element__image" src="./images/elements/Elbrus.jpg"
+              alt="Фотография зари с видом на поле и на заднем плане виден силует горы Эльбрус">
             <div class="element__group">
               <h2 class="element__title">Гора Эльбрус</h2>
-              <button class="element__like-button"  type="button" aria-label="Лайк"></button>
+              <button class="element__like-button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image"
-              src="./images/elements/Dombay.jpg"
-              alt="Фотография с видом на комплекс гор.
+            <img class="element__image" src="./images/elements/Dombay.jpg" alt="Фотография с видом на комплекс гор.
               На переднем плане еловый лес. На заднем плане каменистая гора на котором местами расположен снег.
-              А сверху пасмурное небою"
-              >
+              А сверху пасмурное небою">
             <div class="element__group">
               <h2 class="element__title">Домбай</h2>
-              <button class="element__like-button"  type="button" aria-label="Лайк"></button>
+              <button class="element__like-button" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image"
-              src="./images/elements/Karachaevsk.jpg"
-              alt="Фотография с видом на каменный старинный храм, который расположен на горе"
-              >
+            <img class="element__image" src="./images/elements/Karachaevsk.jpg"
+              alt="Фотография с видом на каменный старинный храм, который расположен на горе">
             <div class="element__group">
               <h2 class="element__title">Карачаево-Черкессия</h2>
               <button class="element__like-button" type="button" aria-label="Лайк"></button>
@@ -111,8 +97,25 @@
     <!-- Попап редактирования -->
     <section class="popup">
       <form class="popup__container" novalidate>
+        <button class="popup__close-button"></button>
         <fieldset class="popup__content">
           <h2 class="popup__title">Редактировать профиль</h2>
+          <label class="popup__label" for="name">
+            <input
+              class="popup__input popup__input_name"
+              name="name"
+              placeholder="Жак-Ив Кусто"
+              required type="text"
+            >
+          </label>
+          <label class="popup__label" for="job">
+            <input
+              class="popup__input popup__input_job"
+              name="job"
+              placeholder="Исследователь океана"
+              required type="text">
+          </label>
+          <button class="popup__button" type="submit">Сохранить</button>
         </fieldset>
       </form>
     </section>
