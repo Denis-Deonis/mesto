@@ -44,11 +44,11 @@ document.querySelector('.popup__container').addEventListener('click', function(e
 // Редактирование имени и информации о себе
 
 // Находим форму в DOM
-let formElement = document.querySelector('form');
+let formElement = document.querySelector('.popup__form');
 
 // Находим поля формы в DOM
-let nameInput = formElement.querySelector('.popup__input_name');
-let jobInput = formElement.querySelector('.popup__input_job');
+let nameInput = document.querySelector('.popup__input_name');
+let jobInput = document.querySelector('.popup__input_job');
 
 let nameTitle = document.querySelector('.profile__title');
 let jobSubtitle = document.querySelector('.profile__subtitle');
