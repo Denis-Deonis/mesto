@@ -30,9 +30,7 @@
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
           </div>
-          <p class="profile__subtitle">
-            Исследователь океана
-          </p>
+          <p class="profile__subtitle">Исследователь океана</p>
         </div>
         <button class="profile__add-button"></button>
       </section>
@@ -97,14 +95,14 @@
 
     <!-- Попап редактирования -->
     <section class="popup">
-      <form class="popup__container" novalidate>
+      <form class="popup__container popup__form" novalidate>
         <button class="popup__close-button"></button>
         <fieldset class="popup__content">
           <h2 class="popup__title">Редактировать профиль</h2>
           <label class="popup__label" for="name">
             <input
               class="popup__input popup__input_name"
-              name="name"
+              name="nameInput"
               placeholder="Жак-Ив Кусто"
               required type="text"
             >
@@ -112,7 +110,7 @@
           <label class="popup__label" for="job">
             <input
               class="popup__input popup__input_job"
-              name="job"
+              name="jobInput"
               placeholder="Исследователь океана"
               required type="text">
           </label>

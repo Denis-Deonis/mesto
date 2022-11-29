@@ -16,6 +16,8 @@ const closeButton = popup.querySelector('.popup__close-button').addEventListener
 // это функция открывает "popup" через замену "display: none" на "display: flex;" в "css"
 function openPopup() {
   popup.classList.add('popup_opened');
+  nameInput.value = nameTitle.textContent;
+  jobInput.value = jobSubtitle.textContent;
 }
 
 // это функция закрывает "popup". так же меняет "display"
@@ -42,12 +44,14 @@ document.querySelector('.popup__container').addEventListener('click', function(e
 // Редактирование имени и информации о себе
 
 // Находим форму в DOM
-let formElement = document.querySelector('.popup__container');
+let formElement = document.querySelector('form');
 
 // Находим поля формы в DOM
 let nameInput = formElement.querySelector('.popup__input_name');
 let jobInput = formElement.querySelector('.popup__input_job');
 
+let nameTitle = document.querySelector('.profile__title');
+let jobSubtitle = document.querySelector('.profile__subtitle');
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
@@ -55,9 +59,11 @@ function handleFormSubmit (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
 // Находим "profile__title", чтобы вставить имя с помощью "value"
-  document.querySelector('.profile__title').textContent = nameInput.value;
+  nameTitle.textContent = nameInput.value;
 // Находим "profile__subtitle", чтобы вставить профессию с помощью "value"
-  document.querySelector('.profile__subtitle').textContent = jobInput.value;
+  jobSubtitle.textContent = jobInput.value;
+
+  closePopup();
 }
 
 // Прикрепляем обработчик к форме:
