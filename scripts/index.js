@@ -48,14 +48,19 @@ let formElement = document.querySelector('.popup__container');
 let nameInput = formElement.querySelector('.popup__input_name');
 let jobInput = formElement.querySelector('.popup__input_job');
 
+
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function handleFormSubmit (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
+// Находим "profile__title", чтобы вставить имя с помощью "value"
+  document.querySelector('.profile__title').textContent = nameInput.value;
+// Находим "profile__subtitle", чтобы вставить профессию с помощью "value"
+  document.querySelector('.profile__subtitle').textContent = jobInput.value;
 }
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', handleFormSubmit); 
+formElement.addEventListener('submit', handleFormSubmit);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
