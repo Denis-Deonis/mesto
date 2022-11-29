@@ -3,6 +3,7 @@
   height: 50px;
   background-color: #000;
   border: 2px solid #fff;
+  border-radius: 2px;
   background-size: 22px;
   background-image: url(../../../images/profile/Add_Button.svg);
   background-position: center;
@@ -15,4 +16,8 @@
   .profile__add-button {
     width: 100%;
   }
+}
+
+.profile__add-button:hover {
+  opacity: .6;
 }

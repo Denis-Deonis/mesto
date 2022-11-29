@@ -11,3 +11,7 @@
   cursor: pointer;
   padding: 0;
 }
+
+.profile__edit-button:hover {
+  opacity: .6;
+}

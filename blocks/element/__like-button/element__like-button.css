@@ -4,5 +4,14 @@
   border: none;
   align-self: center;
   background-image: url(../../../images/elements/like.svg);
+  cursor: pointer;
+}
 
+.element__like-button:hover {
+  opacity: .5;
+}
+
+.element__like-button:active {
+  background-image: url(../../../images/elements/Union.svg);
+  opacity: 1;
 }
