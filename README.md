@@ -3,10 +3,18 @@
 
 ## Демо сайта
 
+<img src='https://github.com/Denis-Deonis/pictures/blob/main/mesto/Screen_mestot.gif' alt="анимация - демо сайта Mesto" style="margin: 0 auto;">
+
 ## Описание
 
 ["Mesto"](https://denis-deonis.github.io/mesto/) - сайт с интерактивной страницей, куда можно добавлять фотографии, удалять их и ставить лайки. Сервис предоставляет возможность делиться красивыми фотографиями мест в которых побывал фотограф. Данный учебный проект создан в рамках прохождения 4 спринта курса ["Веб-разработчик"](https://praktikum.yandex.ru/web/). Цель проекта закрепить на практике пройденный учебный материал.
 
+## Скриншот
+<details><summary><b>Развернуть</b></summary>
+
+[![mesto](https://github.com/Denis-Deonis/pictures/blob/main/mesto/Screenshot_Mesto.png)](https://github.com/Denis-Deonis/mesto)
+
+</details>
 
 ## Ссылка на сайт
 
