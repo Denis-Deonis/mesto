@@ -26,6 +26,7 @@
 ## Технологии
 
 * HTML5 и CSS3
+* JS (ES6)
 * Flexbox
 * Positioning Elements
 * Transform using CSS
