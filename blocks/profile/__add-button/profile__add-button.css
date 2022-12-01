@@ -28,8 +28,9 @@
 
 @media screen and (max-width: 320px) {
   .profile__add-button {
-    margin-top: 5px;
-    background-image: url(../../../images/profile/320pxVector.svg);
+    margin-top: 6px;
+    background-size: 16px;
+    background-image: url(../../../images/profile/Vector.svg);
   }
 }
 

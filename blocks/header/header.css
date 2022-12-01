@@ -4,8 +4,29 @@
   border-bottom:  1px solid rgba(84, 84, 84, .7);
 }
 
+.header::after {
+  display: none;
+  position: absolute;
+  left: 0;
+  content: "";
+  width: 318px;
+  border:  1px solid rgba(84, 84, 84, .7);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 @media screen and (max-width: 520px) {
   .header {
     margin-top: 28px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    max-width: 320px;
+    border-bottom: none;
+  }
+  .header::after {
+    display: block;
   }
 }
