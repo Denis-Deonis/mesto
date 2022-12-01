@@ -4,6 +4,11 @@
   font-weight: 400;
   font-size: 1.125rem;
   line-height: 1.375rem;
+  /* лишний текст превращает в точки */
+  max-width: 336px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 900px) {
@@ -16,5 +21,11 @@
   .profile__subtitle {
     font-size: 0.875rem;
     line-height: 1.0625rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__subtitle {
+    margin: 7px 0 0 0;
   }
 }

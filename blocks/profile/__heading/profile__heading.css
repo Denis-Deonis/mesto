@@ -9,3 +9,9 @@
     gap: 10px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .profile__heading {
+    padding-left: 30px;
+  }
+}

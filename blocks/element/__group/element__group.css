@@ -4,3 +4,9 @@
   color: #000;
   margin: 25px 15px 31px 21px;
 }
+
+@media screen and (max-width: 320px) {
+  .element__group {
+    margin: 21px 21px 25px 21px;
+  }
+}

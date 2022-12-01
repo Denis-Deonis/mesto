@@ -26,6 +26,13 @@
   }
 }
 
+@media screen and (max-width: 320px) {
+  .profile__add-button {
+    margin-top: 5px;
+    background-image: url(../../../images/profile/320pxVector.svg);
+  }
+}
+
 .profile__add-button:hover {
   opacity: .6;
 }

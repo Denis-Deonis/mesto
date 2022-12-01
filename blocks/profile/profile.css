@@ -12,3 +12,9 @@
     grid-template-columns: none;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .profile {
+    gap: 28px;
+  }
+}
