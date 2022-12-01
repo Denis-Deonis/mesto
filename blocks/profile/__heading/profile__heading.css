@@ -4,7 +4,7 @@
   gap: 18px;
 }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 900px) {
   .profile__heading {
     gap: 10px;
   }

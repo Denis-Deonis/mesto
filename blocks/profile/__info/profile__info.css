@@ -4,7 +4,7 @@
   max-height: 73px;
 }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 900px) {
   .profile__info {
     justify-self: center;
   }

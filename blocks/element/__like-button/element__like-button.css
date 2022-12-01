@@ -3,6 +3,7 @@
   height: 19px;
   border: none;
   align-self: center;
+  border-color: transparent;
   background-image: url(../../../images/elements/like.svg);
   cursor: pointer;
 }
