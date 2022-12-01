@@ -1,7 +1,6 @@
 .profile__info {
   max-width: 336px;
   display: grid;
-  max-height: 73px;
 }
 
 @media screen and (max-width: 900px) {
