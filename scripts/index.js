@@ -9,14 +9,16 @@ const editButton = document.querySelector('.profile__edit-button');
 // эта переменная работает только через переменную "popup", через документ ломается функция
 const closeButton = popup.querySelector('.popup__close-button');
 
+let popupContainer = document.querySelector('.popup__container');
+
 // Редактирование имени и информации о себе
 
 // Находим форму в DOM
 let formElement = document.querySelector('.popup__form');
 
-// Находим поля формы в DOM
-let nameInput = document.querySelector('.popup__input_name');
-let jobInput = document.querySelector('.popup__input_job');
+// Находим поля формы в DOM и через "name" очень удобно не нужно ID  или водить новый класс
+let nameInput = document.querySelector('input[name="nameInput"]');
+let jobInput = document.querySelector('input[name="jobInput"]');
 
 let nameTitle = document.querySelector('.profile__title');
 let jobSubtitle = document.querySelector('.profile__subtitle');
@@ -33,19 +35,6 @@ function openPopup() {
 function closePopup() {
   popup.classList.remove('popup_opened');
 }
-
-// эти строчки кода закрывает "popup" по нажатию на область вне "popup"
-// желательно делать в связке так как может работать не предсказуемо
-// //////////////////////////////
-// popup.addEventListener('click', function(event){
-//   if(!event.defaultPrevented){
-//     closePopup();
-//   }
-// })
-// document.querySelector('.popup__container').addEventListener('click', function(event){
-//   event.preventDefault();
-// })
-///////////////////////////////
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
@@ -69,3 +58,17 @@ formElement.addEventListener('submit', handleFormSubmit);
 
 editButton.addEventListener('click', openPopup);
 closeButton.addEventListener('click', closePopup);
+
+
+// эти строчки кода закрывает "popup" по нажатию на область вне "popup"
+// желательно делать в связке так как может работать не предсказуемо
+// //////////////////////////////
+// popup.addEventListener('click', function(event){
+//   if(!event.defaultPrevented){
+//     closePopup();
+//   }
+// })
+// document.querySelector('.popup__container').addEventListener('click', function(event){
+//   event.preventDefault();
+// })
+///////////////////////////////
