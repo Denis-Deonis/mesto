@@ -2,15 +2,16 @@
   width: 100%;
   margin-top: 45px;
   border-bottom:  1px solid rgba(84, 84, 84, .7);
+  position: relative;
 }
 
 .header::after {
   display: none;
   position: absolute;
-  left: 0;
+  left: -18px;
   content: "";
   width: 318px;
-  border:  1px solid rgba(84, 84, 84, .7);
+  border-bottom:  1px solid rgba(84, 84, 84, .7);
   box-sizing: border-box;
   overflow: hidden;
 }
