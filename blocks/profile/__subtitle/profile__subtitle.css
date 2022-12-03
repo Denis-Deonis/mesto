@@ -17,12 +17,21 @@
   }
 }
 
+@media screen and (max-width: 619px) {
+  .profile__subtitle {
+    max-width: 282px;
+    font-size: 1.1rem;
+    line-height: 1.125rem;
+  }
+}
+
 @media screen and (max-width: 520px) {
   .profile__subtitle {
     font-size: 0.875rem;
     line-height: 1.0625rem;
   }
 }
+
 
 @media screen and (max-width: 320px) {
   .profile__subtitle {

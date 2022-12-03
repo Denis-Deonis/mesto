@@ -11,6 +11,14 @@
   white-space: nowrap;
 }
 
+@media screen and (max-width: 619px) {
+  .profile__title {
+    max-width: 248px;
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
+
 @media screen and (max-width: 520px) {
   .profile__title {
     font-size: 1.6875rem;
