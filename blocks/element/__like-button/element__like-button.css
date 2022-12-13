@@ -9,6 +9,7 @@
 }
 
 .element__like-button:hover {
+  background-image: url(../../../images/elements/Union.svg);
   opacity: .5;
 }
 
