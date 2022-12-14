@@ -1,27 +1,23 @@
 // Для себя
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Открытие и закрытие попапа
+// это переменные формы
+const editForm = document.querySelector('#editForm');
+const newCard = document.querySelector('#newCard');
 
-// эти переменные находят классы в html, чтобы управлять ими
-const popup = document.querySelector('.popup');
+// это переменные попап
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const popupNewCard = document.querySelector('.popup_type_add-card');
+
+// это поля инпутов в DOM, ищем через "name" очень удобно не нужно ID  или водить новый класс
+const nameInput = document.querySelector('input[name="nameInput"]'); // Редактирование имени
+const jobInput = document.querySelector('input[name="jobInput"]'); // Редактирование информации о работе
+
+// это кнопки
 const editButton = document.querySelector('.profile__edit-button');
-// эта переменная работает только через переменную "popup", через документ ломается функция
-const closeButton = popup.querySelector('.popup__close-button');
+const closeButton = popupEditProfile.querySelector('.popup__close-button'); // эта переменная работает только через переменную "popupEditProfile", через документ ломается функция
 
-let popupContainer = document.querySelector('.popup__container');
-
-// Редактирование имени и информации о себе
-
-// Находим форму в DOM
-let formElement = document.querySelector('.popup__form');
-
-// Находим поля формы в DOM и через "name" очень удобно не нужно ID  или водить новый класс
-let nameInput = document.querySelector('input[name="nameInput"]');
-let jobInput = document.querySelector('input[name="jobInput"]');
-
-let nameTitle = document.querySelector('.profile__title');
-let jobSubtitle = document.querySelector('.profile__subtitle');
+const nameTitle = document.querySelector('.profile__title');
+const jobSubtitle = document.querySelector('.profile__subtitle');
 
 // находит кнопку Лайк
 const likeButton = document.querySelector('.element__like-button');
@@ -29,14 +25,14 @@ const likeButton = document.querySelector('.element__like-button');
 
 // это функция открывает "popup" через замену "display: none" на "display: flex;" в "css"
 function openPopup() {
-  popup.classList.add('popup_opened');
+  popupEditProfile.classList.add('popup_opened');
   nameInput.value = nameTitle.textContent;
   jobInput.value = jobSubtitle.textContent;
 }
 
 // это функция закрывает "popup". так же меняет "display"
 function closePopup() {
-  popup.classList.remove('popup_opened');
+  popupEditProfile.classList.remove('popup_opened');
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -60,7 +56,7 @@ function changeLike(evt){
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', handleFormSubmit);
+editForm.addEventListener('submit', handleFormSubmit);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // это слушатели событий
