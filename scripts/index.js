@@ -29,15 +29,6 @@ function openPopup(popup) { popup.classList.add('popup_opened');}
 // это функция закрывает "popup". так же меняет "display"
 function closePopup(popup) { popup.classList.remove('popup_opened');}
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
-function handleFormSubmit (evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  nameTitle.textContent = nameInput.value;// Находим "profile__title", чтобы вставить имя с помощью "value"
-  jobSubtitle.textContent = jobInput.value;// Находим "profile__subtitle", чтобы вставить профессию с помощью "value"
-  closePopup(popupEditProfile);
-}
-
 // эта функция изменяет состояние кнопки лайк
 function changeLike(evt){
   evt.target.classList.toggle('element__like-button_active');
@@ -45,15 +36,21 @@ function changeLike(evt){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // это слушатели событий
 
+editForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  nameTitle.textContent = nameInput.value;
+  jobSubtitle.textContent = jobInput.value;
+  closePopup(popupEditProfile);
+}); // этот слушатель обработчик «отправки» формы
+
 editButton.addEventListener('click', () => {
   nameInput.value = nameTitle.textContent;
   jobInput.value = jobSubtitle.textContent;
   openPopup(popupEditProfile);
 }); // этот слушатель открывает Попап
+
 closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап
 likeButton.addEventListener('click', changeLike); // этот слушатель изменяет лайк
-
-editForm.addEventListener('submit', handleFormSubmit); // этот слушатель следит за событием “submit” - «отправка»
 
 addButton.addEventListener('click', openPopup);
 
@@ -70,3 +67,13 @@ addButton.addEventListener('click', openPopup);
 //   event.preventDefault();
 // })
 ///////////////////////////////
+
+// Обработчик «отправки» формы, хотя пока
+// она никуда отправляться не будет
+// function handleFormSubmit(evt) {
+//   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+//   nameTitle.textContent = nameInput.value;// Находим "profile__title", чтобы вставить имя с помощью "value"
+//   jobSubtitle.textContent = jobInput.value;// Находим "profile__subtitle", чтобы вставить профессию с помощью "value"
+//   closePopup(popupEditProfile);
+// }
+// editForm.addEventListener("submit", handleFormSubmit); // этот слушатель следит за событием “submit” - «отправка»
