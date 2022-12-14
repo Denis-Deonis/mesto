@@ -33,7 +33,7 @@ editForm.addEventListener('submit', (evt) => {
   nameTitle.textContent = nameInput.value;
   jobSubtitle.textContent = jobInput.value;
   closePopup(popupEditProfile);
-}); // этот слушатель обработчик «отправки» формы
+}); // этот слушатель обработчик «отправки» формы должен быть выше слушателя который открывает Попап. Если будет по другому угроблю опять 3 часа
 
 editButton.addEventListener('click', () => {
   nameInput.value = nameTitle.textContent;
