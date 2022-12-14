@@ -23,6 +23,9 @@ let jobInput = document.querySelector('input[name="jobInput"]');
 let nameTitle = document.querySelector('.profile__title');
 let jobSubtitle = document.querySelector('.profile__subtitle');
 
+// находит кнопку Лайк
+const likeButton = document.querySelector('.element__like-button');
+
 
 // это функция открывает "popup" через замену "display: none" на "display: flex;" в "css"
 function openPopup() {
@@ -49,6 +52,12 @@ function handleFormSubmit (evt) {
   closePopup();
 }
 
+// эта функция изменяет состояние кнопки лайк
+function changeLike(evt){
+  evt.target.classList.toggle('element__like-button_active');
+}
+
+
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
@@ -56,8 +65,9 @@ formElement.addEventListener('submit', handleFormSubmit);
 
 // это слушатели событий
 
-editButton.addEventListener('click', openPopup);
-closeButton.addEventListener('click', closePopup);
+editButton.addEventListener('click', openPopup); // этот слушатель открывает Попап
+closeButton.addEventListener('click', closePopup); // этот слушатель закрывает Попап
+likeButton.addEventListener('click', changeLike); // этот слушатель изменяет лайк
 
 
 // эти строчки кода закрывает "popup" по нажатию на область вне "popup"
