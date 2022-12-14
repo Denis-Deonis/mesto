@@ -13,57 +13,49 @@ const nameInput = document.querySelector('input[name="nameInput"]'); // Реда
 const jobInput = document.querySelector('input[name="jobInput"]'); // Редактирование информации о работе
 
 // это кнопки
-const editButton = document.querySelector('.profile__edit-button');
+const editButton = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
+const addButton = document.querySelector('.profile__add-button'); // кнопка для добавления фото
 const closeButton = popupEditProfile.querySelector('.popup__close-button'); // эта переменная работает только через переменную "popupEditProfile", через документ ломается функция
+const likeButton = document.querySelector('.element__like-button'); // находит кнопку Лайк
 
+// это профиль тайтл и сабтайтл
 const nameTitle = document.querySelector('.profile__title');
 const jobSubtitle = document.querySelector('.profile__subtitle');
 
-// находит кнопку Лайк
-const likeButton = document.querySelector('.element__like-button');
 
-
-// это функция открывает "popup" через замену "display: none" на "display: flex;" в "css"
-function openPopup() {
-  popupEditProfile.classList.add('popup_opened');
-  nameInput.value = nameTitle.textContent;
-  jobInput.value = jobSubtitle.textContent;
-}
+// это функция открывает "popup"
+function openPopup(popup) { popup.classList.add('popup_opened');}
 
 // это функция закрывает "popup". так же меняет "display"
-function closePopup() {
-  popupEditProfile.classList.remove('popup_opened');
-}
+function closePopup(popup) { popup.classList.remove('popup_opened');}
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function handleFormSubmit (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-// Находим "profile__title", чтобы вставить имя с помощью "value"
-  nameTitle.textContent = nameInput.value;
-// Находим "profile__subtitle", чтобы вставить профессию с помощью "value"
-  jobSubtitle.textContent = jobInput.value;
-
-  closePopup();
+  nameTitle.textContent = nameInput.value;// Находим "profile__title", чтобы вставить имя с помощью "value"
+  jobSubtitle.textContent = jobInput.value;// Находим "profile__subtitle", чтобы вставить профессию с помощью "value"
+  closePopup(popupEditProfile);
 }
 
 // эта функция изменяет состояние кнопки лайк
 function changeLike(evt){
   evt.target.classList.toggle('element__like-button_active');
 }
-
-
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-editForm.addEventListener('submit', handleFormSubmit);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // это слушатели событий
 
-editButton.addEventListener('click', openPopup); // этот слушатель открывает Попап
-closeButton.addEventListener('click', closePopup); // этот слушатель закрывает Попап
+editButton.addEventListener('click', () => {
+  nameInput.value = nameTitle.textContent;
+  jobInput.value = jobSubtitle.textContent;
+  openPopup(popupEditProfile);
+}); // этот слушатель открывает Попап
+closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап
 likeButton.addEventListener('click', changeLike); // этот слушатель изменяет лайк
+
+editForm.addEventListener('submit', handleFormSubmit); // этот слушатель следит за событием “submit” - «отправка»
+
+addButton.addEventListener('click', openPopup);
 
 
 // эти строчки кода закрывает "popup" по нажатию на область вне "popup"
