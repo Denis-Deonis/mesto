@@ -15,7 +15,7 @@ const jobInput = document.querySelector('input[name="jobInput"]'); // Редак
 // это кнопки
 const editButton = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
 const addButton = document.querySelector('.profile__add-button'); // кнопка для добавления фото
-const closeButton = popupEditProfile.querySelector('.popup__close-button'); // эта переменная работает только через переменную "popupEditProfile", через документ ломается функция
+const closeButton = document.querySelector('.popup__close-button'); // кнопка закрытия
 const likeButton = document.querySelector('.element__like-button'); // находит кнопку Лайк
 
 // это профиль тайтл и сабтайтл
@@ -26,8 +26,6 @@ const cardsContainer = document.querySelector('.elements__list');
 
 function openPopup(popup) { popup.classList.add('popup_opened');} // эта функция открывает "popup"
 function closePopup(popup) { popup.classList.remove('popup_opened');} // эта функция закрывает "popup"
-//function changeLike(evt){ evt.target.classList.toggle('element__like-button_active');} // эта функция изменяет состояние кнопки лайк
-
 
 // это слушатели событий
 editForm.addEventListener('submit', (evt) => {
@@ -44,7 +42,6 @@ editButton.addEventListener('click', () => {
 }); // этот слушатель открывает Попап
 
 closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап
-// likeButton.addEventListener('click', changeLike); // этот слушатель изменяет лайк
 
 addButton.addEventListener('click', ()=> {openPopup(popupNewCard)});
 
