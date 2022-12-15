@@ -22,6 +22,8 @@ const likeButton = document.querySelector('.element__like-button'); // нахо�
 const nameTitle = document.querySelector('.profile__title');
 const jobSubtitle = document.querySelector('.profile__subtitle');
 
+const cardsContainer = document.querySelector('.elements__list');
+
 function openPopup(popup) { popup.classList.add('popup_opened');} // эта функция открывает "popup"
 function closePopup(popup) { popup.classList.remove('popup_opened');} // эта функция закрывает "popup"
 //function changeLike(evt){ evt.target.classList.toggle('element__like-button_active');} // эта функция изменяет состояние кнопки лайк
@@ -46,3 +48,31 @@ closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // э�
 
 addButton.addEventListener('click', ()=> {openPopup(popupNewCard)});
 
+
+// ниже область по проекту 5-template
+
+// function imageOpen(templateContainer, ) {
+
+// }
+
+function createCard(value) {
+  // это template
+const template = document.querySelector('#element-template').content;
+const templateContainer = template.querySelector('.element').cloneNode(true);
+const templateTitle = templateContainer.querySelector('.element__title');
+const templateImage = templateContainer.querySelector('.element__image');
+const templateTrash = templateContainer.querySelector('.element__trash');
+const likeButton = templateContainer.querySelector('.element__like-button');
+
+  templateTitle.textContent = value.name;
+  templateImage.src = value.link;
+  //templateImage.addEventListener('click', () => imageOpen(templateContainer, value.link)); // этот слушатель открывает картинку
+  templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет
+  likeButton.addEventListener('click', (evt)=>{evt.target.classList.toggle('element__like-button_active')});
+
+  return templateContainer
+}
+
+function renderCard(templateContainer, container) {  container.prepend(templateContainer)}
+
+cardsContainer.append(...initialCards.map(createCard));
