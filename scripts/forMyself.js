@@ -19,6 +19,7 @@
 // }
 // editForm.addEventListener("submit", handleFormSubmit); // этот слушатель следит за событием “submit” - «отправка»
 
+//function renderCard(templateContainer, container) {  container.prepend(templateContainer)}
 //////
 // здесь массив перевернут
 // function render() {

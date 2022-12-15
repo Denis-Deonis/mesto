@@ -70,6 +70,4 @@ const likeButton = templateContainer.querySelector('.element__like-button');
   return templateContainer
 }
 
-function renderCard(templateContainer, container) {  container.prepend(templateContainer)}
-
 cardsContainer.append(...initialCards.map(createCard));
