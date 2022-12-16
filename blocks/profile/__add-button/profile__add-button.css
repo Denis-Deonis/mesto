@@ -10,9 +10,11 @@
   background-repeat: no-repeat;
   cursor: pointer;
   padding: 0;
+  transition: 0.5s ease-in;
 }
 
 .profile__add-button:hover {
+  transform: scale(1.03);
   opacity: .6;
   transition: 0.5s ease-in-out;
 }
