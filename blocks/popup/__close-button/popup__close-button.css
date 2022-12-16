@@ -5,18 +5,22 @@
   position: absolute;
   right: -40px;
   top: -40px;
+  background-color: transparent;
   background: url(../../../images/popup/CloseIcon.svg);
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
   border: none;
-
   cursor: pointer;
 }
 
 .popup__close-button:hover {
   opacity: .6;
   transition: 0.5s ease-in-out;
+}
+
+.popup__close-button:focus{
+  transform: rotate(45deg);
 }
 
 .popup__close-button:focus {
