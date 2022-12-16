@@ -29,18 +29,18 @@ function openPopup(popup) { popup.classList.add('popup_opened');} // эта фу
 function closePopup(popup) { popup.classList.remove('popup_opened');} // эта функция закрывает "popup"
 
 // это слушатели событий
+editButton.addEventListener('click', () => {
+  nameInput.value = nameTitle.textContent;
+  jobInput.value = jobSubtitle.textContent;
+  openPopup(popupEditProfile);
+}); // этот слушатель открывает Попап
+
 editForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   nameTitle.textContent = nameInput.value;
   jobSubtitle.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }); // этот слушатель обработчик «отправки» формы должен быть выше слушателя который открывает Попап. Если будет по другому угроблю опять 3 часа
-
-editButton.addEventListener('click', () => {
-  nameInput.value = nameTitle.textContent;
-  jobInput.value = jobSubtitle.textContent;
-  openPopup(popupEditProfile);
-}); // этот слушатель открывает Попап
 
 closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
 closeButtonCard.addEventListener('click', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
