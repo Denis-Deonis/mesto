@@ -15,7 +15,8 @@ const jobInput = document.querySelector('input[name="jobInput"]'); // Редак
 // это кнопки
 const editButton = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
 const addButton = document.querySelector('.profile__add-button'); // кнопка для добавления фото
-const closeButton = document.querySelector('.popup__close-button'); // кнопка закрытия
+const closeButton = popupEditProfile.querySelector('.popup__close-button'); // кнопка закрытия popupEditProfile
+const closeButtonCard = popupNewCard.querySelector('.popup__close-button'); // кнопка закрытия Попап popupNewCard
 const likeButton = document.querySelector('.element__like-button'); // находит кнопку Лайк
 
 // это профиль тайтл и сабтайтл
@@ -41,7 +42,8 @@ editButton.addEventListener('click', () => {
   openPopup(popupEditProfile);
 }); // этот слушатель открывает Попап
 
-closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап
+closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
+closeButtonCard.addEventListener('click', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
 
 addButton.addEventListener('click', ()=> {openPopup(popupNewCard)});
 
@@ -71,3 +73,20 @@ const likeButton = templateContainer.querySelector('.element__like-button');
 }
 
 cardsContainer.append(...initialCards.map(createCard));
+
+
+// эти строчки кода закрывает "popup" по нажатию на область вне "popup"
+// желательно делать в связке так как может работать не предсказуемо
+popupEditProfile.addEventListener('click', function(event){
+  if(!event.defaultPrevented){
+    closePopup(popupEditProfile);
+  }
+})
+popupNewCard.addEventListener('click', function(event){
+  if(!event.defaultPrevented){
+    closePopup(popupNewCard);
+  }
+})
+document.querySelector('.popup__container').addEventListener('click', function(event){
+  event.preventDefault();
+})
