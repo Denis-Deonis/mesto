@@ -11,6 +11,8 @@ const popupNewCard = document.querySelector('.popup_type_add-card');
 // это поля инпутов в DOM, ищем через "name" очень удобно не нужно ID  или водить новый класс
 const nameInput = document.querySelector('input[name="nameInput"]'); // Редактирование имени
 const jobInput = document.querySelector('input[name="jobInput"]'); // Редактирование информации о работе
+const titleInput = document.querySelector('input[name="titleInput"]'); // Добавление заголовка картинки
+const imageInput = document.querySelector('input[name="imageInput"]'); // Добавление ссылки на картинку
 
 // это кнопки
 const editButton = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
@@ -45,7 +47,9 @@ editButton.addEventListener('click', () => {
 closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
 closeButtonCard.addEventListener('click', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
 
-addButton.addEventListener('click', ()=> {openPopup(popupNewCard)});
+addButton.addEventListener('click', ()=> {
+  openPopup(popupNewCard)
+});
 
 
 // ниже область по проекту 5-template
@@ -73,3 +77,13 @@ const likeButton = templateContainer.querySelector('.element__like-button');
 }
 
 cardsContainer.append(...initialCards.map(createCard));
+
+newCard.addEventListener('submit', (evt)=>{
+  evt.preventDefault();
+  const name = titleInput.value;
+  const link = imageInput.value;
+  const newCard = createCard({ name, link });
+  cardsContainer.prepend(newCard);
+  closePopup(popupNewCard);
+  evt.target.reset();
+})
