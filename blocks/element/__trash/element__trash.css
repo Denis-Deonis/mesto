@@ -15,4 +15,6 @@
 .element__trash:hover {
   opacity: .5;
   transition: .5s ease-in;
+  background-color: #000;
+  border-radius: 10%;
 }
