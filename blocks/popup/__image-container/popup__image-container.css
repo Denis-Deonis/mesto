@@ -1,0 +1,7 @@
+.popup__image-container {
+  width: 433px;
+  height: 562px;
+  background-color: transparent;
+  object-fit: cover;
+  
+}
