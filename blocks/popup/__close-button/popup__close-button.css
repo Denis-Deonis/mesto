@@ -20,7 +20,7 @@
 }
 
 .popup__close-button:focus{
-  transform: rotate(45deg);
+  transform: rotate(90deg);
 }
 
 .popup__close-button:focus {

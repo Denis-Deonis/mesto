@@ -3,10 +3,12 @@
 // это переменные формы
 const editForm = document.querySelector('#editForm');
 const newCard = document.querySelector('#newCard');
+const template = document.querySelector('#element-template').content;
 
 // это переменные попап
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupNewCard = document.querySelector('.popup_type_add-card');
+const popupImage = document.querySelector('.popup_type_image');
 
 // это поля инпутов в DOM, ищем через "name" очень удобно не нужно ID  или водить новый класс
 const nameInput = document.querySelector('input[name="nameInput"]'); // Редактирование имени
@@ -17,9 +19,10 @@ const imageInput = document.querySelector('input[name="imageInput"]'); // Доб
 // это кнопки
 const editButton = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
 const addButton = document.querySelector('.profile__add-button'); // кнопка для добавления фото
+const likeButton = document.querySelector('.element__like-button'); // находит кнопку Лайк
 const closeButton = popupEditProfile.querySelector('.popup__close-button'); // кнопка закрытия popupEditProfile
 const closeButtonCard = popupNewCard.querySelector('.popup__close-button'); // кнопка закрытия Попап popupNewCard
-const likeButton = document.querySelector('.element__like-button'); // находит кнопку Лайк
+const closeButtonImage = popupImage.querySelector('.popup__close-button');
 
 // это профиль тайтл и сабтайтл
 const nameTitle = document.querySelector('.profile__title');
@@ -46,6 +49,7 @@ editButton.addEventListener('click', () => {
 
 closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
 closeButtonCard.addEventListener('click', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
+closeButtonImage.addEventListener('click', ()=> closePopup(popupImage));
 
 addButton.addEventListener('click', ()=> {
   openPopup(popupNewCard)
@@ -54,19 +58,19 @@ addButton.addEventListener('click', ()=> {
 
 // ниже область по проекту 5-template
 
-function openImage(templateContainer, link, name){
+function openImage(templateContainer, link){
+  const templateTitle = templateContainer.querySelector('.element__title');
   const img = document.querySelector('.popup__image');
   const imgTitle = document.querySelector('.popup__image-title');
-  imgTitle.textContent = name;
+  imgTitle.textContent = templateTitle.textContent;
   img.src = link;
-  img.alt = name;
-  openPopup(templateContainer);
+  img.alt = templateTitle.textContent;
+  openPopup(popupImage);
 }
 
 
 function createCard(value) {
   // это template
-const template = document.querySelector('#element-template').content;
 const templateContainer = template.querySelector('.element').cloneNode(true);
 const templateTitle = templateContainer.querySelector('.element__title');
 const templateImage = templateContainer.querySelector('.element__image');
@@ -80,7 +84,7 @@ const likeButton = templateContainer.querySelector('.element__like-button');
     evt.target.classList.toggle('element__like-button_active')
   });
 
-  templateImage.addEventListener('click',  openImage(templateContainer, value.link, value.name) ); // этот слушатель открывает картинку
+  templateImage.addEventListener('click', ()=> openImage(templateContainer, value.link)); // этот слушатель открывает картинку
 
   return templateContainer
 }

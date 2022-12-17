@@ -1,7 +1,9 @@
 .popup__image-container {
-  width: 433px;
-  height: 562px;
-  background-color: transparent;
-  object-fit: cover;
-  
+  position: relative;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-width: 75vw;
+  height: 75vh;
 }

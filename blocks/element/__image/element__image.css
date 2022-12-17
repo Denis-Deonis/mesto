@@ -5,3 +5,7 @@
   object-fit: cover;
   background-size: cover;
 }
+
+.element__image:hover {
+  cursor: pointer;
+}
