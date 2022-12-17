@@ -54,9 +54,15 @@ addButton.addEventListener('click', ()=> {
 
 // ниже область по проекту 5-template
 
-// function imageOpen(templateContainer, ) {
+function openImage(templateContainer, link, name){
+  const img = document.querySelector('.popup__image');
+  const imgTitle = document.querySelector('.popup__image-title');
+  imgTitle.textContent = name;
+  img.src = link;
+  img.alt = name;
+  openPopup(templateContainer);
+}
 
-// }
 
 function createCard(value) {
   // это template
@@ -69,9 +75,12 @@ const likeButton = templateContainer.querySelector('.element__like-button');
 
   templateTitle.textContent = value.name;
   templateImage.src = value.link;
-  //templateImage.addEventListener('click', () => imageOpen(templateContainer, value.link)); // этот слушатель открывает картинку
   templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет
-  likeButton.addEventListener('click', (evt)=>{evt.target.classList.toggle('element__like-button_active')});
+  likeButton.addEventListener('click', (evt)=> {
+    evt.target.classList.toggle('element__like-button_active')
+  });
+
+  templateImage.addEventListener('click',  openImage(templateContainer, value.link, value.name) ); // этот слушатель открывает картинку
 
   return templateContainer
 }
