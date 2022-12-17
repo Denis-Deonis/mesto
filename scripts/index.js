@@ -7,6 +7,7 @@ const newCard = document.querySelector('#newCard');
 // это переменные попап
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupNewCard = document.querySelector('.popup_type_add-card');
+const popupImage = document.querySelector('.popup_type_image');
 
 // это поля инпутов в DOM, ищем через "name" очень удобно не нужно ID  или водить новый класс
 const nameInput = document.querySelector('input[name="nameInput"]'); // Редактирование имени
@@ -54,10 +55,6 @@ addButton.addEventListener('click', ()=> {
 
 // ниже область по проекту 5-template
 
-// function imageOpen(templateContainer, ) {
-
-// }
-
 function createCard(value) {
   // это template
 const template = document.querySelector('#element-template').content;
@@ -69,9 +66,16 @@ const likeButton = templateContainer.querySelector('.element__like-button');
 
   templateTitle.textContent = value.name;
   templateImage.src = value.link;
-  //templateImage.addEventListener('click', () => imageOpen(templateContainer, value.link)); // этот слушатель открывает картинку
+  // templateImage.addEventListener('click', (value) => {
+  //   const img = document.querySelector('.popup__image');
+  //   const imgTitle = document.querySelector('.popup__image-title');
+  //   imgTitle.textContent = templateTitle.textContent;
+  //   img.src = value.link;
+  //   img.alt = templateTitle.textContent;
+  //   openPopup(popupImage);
+  // }); // этот слушатель открывает картинку
   templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет
-  likeButton.addEventListener('click', (evt)=>{evt.target.classList.toggle('element__like-button_active')});
+  likeButton.addEventListener('click', (evt)=> {evt.target.classList.toggle('element__like-button_active')});
 
   return templateContainer
 }
