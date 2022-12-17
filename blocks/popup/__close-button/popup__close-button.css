@@ -21,9 +21,6 @@
 
 .popup__close-button:focus{
   transform: rotate(90deg);
-}
-
-.popup__close-button:focus {
   outline: 0;
 }
 
