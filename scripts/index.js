@@ -1,8 +1,8 @@
 // Для себя
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // это переменные формы
-const editForm = document.querySelector('#editForm');
-const newCard = document.querySelector('#newCard');
+const profileForm = document.querySelector('#editForm');
+const formNewCard = document.querySelector('#newCard');
 const template = document.querySelector('#element-template').content;
 
 // это переменные попап
@@ -17,12 +17,12 @@ const titleInput = document.querySelector('input[name="titleInput"]'); // Доб
 const imageInput = document.querySelector('input[name="imageInput"]'); // Добавление ссылки на картинку
 
 // это кнопки
-const editButton = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
-const addButton = document.querySelector('.profile__add-button'); // кнопка для добавления фото
-const likeButton = document.querySelector('.element__like-button'); // находит кнопку Лайк
-const closeButton = popupEditProfile.querySelector('.popup__close-button'); // кнопка закрытия popupEditProfile
-const closeButtonCard = popupNewCard.querySelector('.popup__close-button'); // кнопка закрытия Попап popupNewCard
-const closeButtonImage = popupImage.querySelector('.popup__close-button');
+const buttonEdit = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
+const buttonAddFoto = document.querySelector('.profile__add-button'); // кнопка для добавления фото
+
+const buttonClose = popupEditProfile.querySelector('.popup__close-button'); // кнопка закрытия popupEditProfile
+const buttonCloseCard = popupNewCard.querySelector('.popup__close-button'); // кнопка закрытия Попап popupNewCard
+const buttonCloseImage = popupImage.querySelector('.popup__close-button');
 
 // это профиль тайтл и сабтайтл
 const nameTitle = document.querySelector('.profile__title');
@@ -34,24 +34,24 @@ function openPopup(popup) { popup.classList.add('popup_opened');} // эта фу
 function closePopup(popup) { popup.classList.remove('popup_opened');} // эта функция закрывает "popup"
 
 // это слушатели событий
-editForm.addEventListener('submit', (evt) => {
+profileForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   nameTitle.textContent = nameInput.value;
   jobSubtitle.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }); // этот слушатель обработчик «отправки» формы должен быть выше слушателя который открывает Попап. Если будет по другому угроблю опять 3 часа
 
-editButton.addEventListener('click', () => {
+buttonEdit.addEventListener('click', () => {
   nameInput.value = nameTitle.textContent;
   jobInput.value = jobSubtitle.textContent;
   openPopup(popupEditProfile);
 }); // этот слушатель открывает Попап
 
-closeButton.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
-closeButtonCard.addEventListener('click', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
-closeButtonImage.addEventListener('click', ()=> closePopup(popupImage));
+buttonClose.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
+buttonCloseCard.addEventListener('click', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
+buttonCloseImage.addEventListener('click', ()=> closePopup(popupImage));
 
-addButton.addEventListener('click', ()=> {
+buttonAddFoto.addEventListener('click', ()=> {
   openPopup(popupNewCard)
 });
 
@@ -75,12 +75,12 @@ const templateContainer = template.querySelector('.element').cloneNode(true);
 const templateTitle = templateContainer.querySelector('.element__title');
 const templateImage = templateContainer.querySelector('.element__image');
 const templateTrash = templateContainer.querySelector('.element__trash');
-const likeButton = templateContainer.querySelector('.element__like-button');
+const buttonLike = templateContainer.querySelector('.element__like-button');
 
   templateTitle.textContent = value.name;
   templateImage.src = value.link;
   templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет
-  likeButton.addEventListener('click', (evt)=> {
+  buttonLike.addEventListener('click', (evt)=> {
     evt.target.classList.toggle('element__like-button_active')
   });
 
@@ -91,7 +91,7 @@ const likeButton = templateContainer.querySelector('.element__like-button');
 
 cardsContainer.append(...initialCards.map(createCard));
 
-newCard.addEventListener('submit', (evt)=>{
+formNewCard.addEventListener('submit', (evt)=>{
   evt.preventDefault();
   const name = titleInput.value;
   const link = imageInput.value;
