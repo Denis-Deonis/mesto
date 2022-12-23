@@ -50,11 +50,13 @@ buttonEdit.addEventListener('click', () => {
 buttonClose.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
 buttonCloseCard.addEventListener('click', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
 buttonCloseImage.addEventListener('click', ()=> closePopup(popupImage));
+buttonAddFoto.addEventListener('click', ()=>  openPopup(popupNewCard));
 
-buttonAddFoto.addEventListener('click', ()=> {
-  openPopup(popupNewCard)
-});
-
+cardsContainer.addEventListener('click', (evt)=> {
+  if (evt.target.classList.contains('element__like-button')){
+    evt.target.classList.toggle('element__like-button_active')
+  }
+})
 
 // ниже область по проекту 5-template
 
@@ -75,14 +77,10 @@ const templateContainer = template.querySelector('.element').cloneNode(true);
 const templateTitle = templateContainer.querySelector('.element__title');
 const templateImage = templateContainer.querySelector('.element__image');
 const templateTrash = templateContainer.querySelector('.element__trash');
-const buttonLike = templateContainer.querySelector('.element__like-button');
 
   templateTitle.textContent = value.name;
   templateImage.src = value.link;
   templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет
-  buttonLike.addEventListener('click', (evt)=> {
-    evt.target.classList.toggle('element__like-button_active')
-  });
 
   templateImage.addEventListener('click', ()=> openImage(templateContainer, value.link)); // этот слушатель открывает картинку
 
