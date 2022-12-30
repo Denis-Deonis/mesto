@@ -54,14 +54,19 @@
                 name="nameInput"
                 placeholder="Имя"
                 required type="text"
+                minlength="2"
+                maxlength="40"
               >
             </label>
             <label class="popup__label">
               <input
                 class="popup__input"
                 name="jobInput"
-                placeholder="Профессия"
-                required type="text">
+                placeholder="О себе"
+                required type="text"
+                minlength="2"
+                maxlength="200"
+              >
             </label>
             <button class="popup__save" type="submit">Сохранить</button>
           </fieldset>
@@ -82,6 +87,8 @@
                 name="titleInput"
                 placeholder="Название"
                 required type="text"
+                minlength="2"
+                maxlength="30"
               >
             </label>
             <label class="popup__label">
