@@ -32,21 +32,36 @@ const cardsContainer = document.querySelector('.elements__list');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener("keydown", closePopupOnEscape)
+  document.addEventListener("keydown", closePopupOnEscape);
 } // эта функция открывает "popup"
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener("keydown", closePopupOnEscape);
+} // эта функция закрывает "popup"
+
 
 function closePopupOnEscape(evt) {
   if(evt.code == "Escape") {
     const popup = document.querySelector(".popup_opened");
-    const popupButtonClose = document.querySelector('.popup__close-button');
-    popupButtonClose.style.cssText = 'transform: rotate(90deg);';
-    closePopup(popup)
+    closePopup(popup);
   }
 }; // эта функция закрывает попап при нажатии Esc
 
-function closePopup(popup) { popup.classList.remove('popup_opened');} // эта функция закрывает "popup"
+function closeThisPopup(evt) {
+  if (evt.currentTarget === evt.target) {
+    const popup = document.querySelector(".popup_opened");
+    closePopup(popup);
+  }
+}
 
-// это слушатели событий
+// // это слушатели событий
+
+// эти слушатели закрывают попап вне блока при событии mousedown, а не click
+popupEditProfile.addEventListener('mousedown', closeThisPopup);
+popupNewCard.addEventListener('mousedown', closeThisPopup);
+popupImage.addEventListener('mousedown', closeThisPopup);
+
 profileForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   nameTitle.textContent = nameInput.value;
