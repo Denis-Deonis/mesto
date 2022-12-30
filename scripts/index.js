@@ -39,10 +39,10 @@ function closePopupOnEscape(evt) {
   if(evt.code == "Escape") {
     const popup = document.querySelector(".popup_opened");
     const popupButtonClose = document.querySelector('.popup__close-button');
-    popupButtonClose.style['transform'] = 'rotate(90deg)';
+    popupButtonClose.style.cssText = 'transform: rotate(90deg);';
     closePopup(popup)
   }
-};
+}; // эта функция закрывает попап при нажатии Esc
 
 function closePopup(popup) { popup.classList.remove('popup_opened');} // эта функция закрывает "popup"
 
