@@ -30,7 +30,20 @@ const jobSubtitle = document.querySelector('.profile__subtitle');
 
 const cardsContainer = document.querySelector('.elements__list');
 
-function openPopup(popup) { popup.classList.add('popup_opened');} // эта функция открывает "popup"
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener("keydown", closePopupOnEscape)
+} // эта функция открывает "popup"
+
+function closePopupOnEscape(evt) {
+  if(evt.code == "Escape") {
+    const popup = document.querySelector(".popup_opened");
+    const popupButtonClose = document.querySelector('.popup__close-button');
+    popupButtonClose.style['transform'] = 'rotate(90deg)';
+    closePopup(popup)
+  }
+};
+
 function closePopup(popup) { popup.classList.remove('popup_opened');} // эта функция закрывает "popup"
 
 // это слушатели событий
@@ -50,6 +63,7 @@ buttonEdit.addEventListener('click', () => {
 buttonClose.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
 buttonCloseCard.addEventListener('click', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
 buttonCloseImage.addEventListener('click', ()=> closePopup(popupImage));
+
 buttonAddFoto.addEventListener('click', ()=>  openPopup(popupNewCard));
 
 cardsContainer.addEventListener('click', (evt)=> {

@@ -1,3 +1,4 @@
+const popupBlock = document.querySelectorAll('.popup');
 
 
 
