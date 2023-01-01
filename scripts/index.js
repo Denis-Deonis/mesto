@@ -22,7 +22,7 @@ const buttonAddFoto = document.querySelector('.profile__add-button'); // кно�
 
 const buttonClose = popupEditProfile.querySelector('.popup__close-button'); // кнопка закрытия popupEditProfile
 const buttonCloseCard = popupNewCard.querySelector('.popup__close-button'); // кнопка закрытия Попап popupNewCard
-const buttonCloseImage = popupImage.querySelector('.popup__close-button');
+const buttonCloseImage = popupImage.querySelector('.popup__close-button');  // кнопка закрытия Попап popupImage
 
 // это профиль тайтл и сабтайтл
 const nameTitle = document.querySelector('.profile__title');
@@ -43,17 +43,17 @@ function closePopup(popup) {
 
 function closePopupOnEscape(evt) {
   if(evt.code == "Escape") {
-    const popup = document.querySelector(".popup_opened");
+    const popup = document.querySelector(".popup_opened"); // если переменая глобально, то не работает
     closePopup(popup);
   }
 }; // эта функция закрывает попап при нажатии Esc
 
 function closeThisPopup(evt) {
   if (evt.currentTarget === evt.target) {
-    const popup = document.querySelector(".popup_opened");
+    const popup = document.querySelector(".popup_opened"); // если переменая глобально, то не работает
     closePopup(popup);
   }
-}
+} // эта функция закрывает попап вне блока при событии mousedown, а не click
 
 // // это слушатели событий
 
@@ -75,17 +75,17 @@ buttonEdit.addEventListener('click', () => {
   openPopup(popupEditProfile);
 }); // этот слушатель открывает Попап
 
-buttonClose.addEventListener('click', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
-buttonCloseCard.addEventListener('click', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
-buttonCloseImage.addEventListener('click', ()=> closePopup(popupImage));
+buttonClose.addEventListener('mousedown', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
+buttonCloseCard.addEventListener('mousedown', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
+buttonCloseImage.addEventListener('mousedown', ()=> closePopup(popupImage));  // этот слушатель закрывает Попап popupImage
 
-buttonAddFoto.addEventListener('click', ()=>  openPopup(popupNewCard));
+buttonAddFoto.addEventListener('click', ()=>  openPopup(popupNewCard));  // этот слушатель открывает Попап popupNewCard
 
 cardsContainer.addEventListener('click', (evt)=> {
   if (evt.target.classList.contains('element__like-button')){
     evt.target.classList.toggle('element__like-button_active')
   }
-})
+}) // этот слушатель меняет состояние лайка с помощью toggle - очень сокращает код
 
 // ниже область по проекту 5-template
 
@@ -97,7 +97,7 @@ function openImage(templateContainer, link){
   img.src = link;
   img.alt = templateTitle.textContent;
   openPopup(popupImage);
-}
+}  // эта функция открывает картинку
 
 
 function createCard(value) {
@@ -109,14 +109,14 @@ const templateTrash = templateContainer.querySelector('.element__trash');
 
   templateTitle.textContent = value.name;
   templateImage.src = value.link;
-  templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет
+  templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет элемент с картинкой
 
   templateImage.addEventListener('click', ()=> openImage(templateContainer, value.link)); // этот слушатель открывает картинку
 
   return templateContainer
-}
+} // эта функция создает элемент с картинкой
 
-cardsContainer.append(...initialCards.map(createCard));
+cardsContainer.append(...initialCards.map(createCard)); // добавляет все элементы с картинкой с помощью функции createCard
 
 formNewCard.addEventListener('submit', (evt)=>{
   evt.preventDefault();
