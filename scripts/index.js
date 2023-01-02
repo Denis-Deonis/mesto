@@ -81,14 +81,7 @@ buttonEdit.addEventListener('click', () => {
   openPopup(popupEditProfile);
 }); // этот слушатель открывает Попап
 
-
 buttonAddFoto.addEventListener('click', ()=>  openPopup(popupNewCard));  // этот слушатель открывает Попап popupNewCard
-
-cardsContainer.addEventListener('mousedown', (evt)=> {
-  if (evt.target.classList.contains('element__like-button')){
-    evt.target.classList.toggle('element__like-button_active')
-  }
-}) // этот слушатель меняет состояние лайка с помощью toggle - очень сокращает код
 
 // ниже область по проекту 5-template
 
@@ -107,10 +100,17 @@ const templateContainer = template.querySelector('.element').cloneNode(true);
 const templateTitle = templateContainer.querySelector('.element__title');
 const templateImage = templateContainer.querySelector('.element__image');
 const templateTrash = templateContainer.querySelector('.element__trash');
+const templateLike = templateContainer.querySelector('.element__like-button')
 
   templateTitle.textContent = value.name;
   templateImage.src = value.link;
+  templateImage.alt = value.name;
+
   templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет элемент с картинкой
+
+  templateLike.addEventListener('mousedown', ()=> {
+    templateLike.classList.toggle('element__like-button_active')
+  }) // этот слушатель меняет состояние лайка с помощью toggle - очень сокращает код
 
   templateImage.addEventListener('click', ()=> openImage(templateContainer, value.link)); // этот слушатель открывает картинку
 
