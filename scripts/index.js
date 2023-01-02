@@ -6,9 +6,15 @@ const formNewCard = document.querySelector('#newCard');
 const template = document.querySelector('#element-template').content;
 
 // это переменные попап
+const popups = document.querySelectorAll('.popup')
+
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupNewCard = document.querySelector('.popup_type_add-card');
 const popupImage = document.querySelector('.popup_type_image');
+
+const img = document.querySelector('.popup__image');
+const imgTitle = document.querySelector('.popup__image-title');
+
 
 // это поля инпутов в DOM, ищем через "name" очень удобно не нужно ID  или водить новый класс
 const nameInput = document.querySelector('input[name="nameInput"]'); // Редактирование имени
@@ -48,19 +54,16 @@ function closePopupOnEscape(evt) {
   }
 }; // эта функция закрывает попап при нажатии Esc
 
-function closeThisPopup(evt) {
-  if (evt.currentTarget === evt.target) {
-    const popup = document.querySelector(".popup_opened"); // если переменая глобально, то не работает
-    closePopup(popup);
-  }
-} // эта функция закрывает попап вне блока при событии mousedown, а не click
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+    })
+})  // закрывает попап вне блока при событии mousedown, а не click
 
-// // это слушатели событий
 
-// эти слушатели закрывают попап вне блока при событии mousedown, а не click
-popupEditProfile.addEventListener('mousedown', closeThisPopup);
-popupNewCard.addEventListener('mousedown', closeThisPopup);
-popupImage.addEventListener('mousedown', closeThisPopup);
+// // // это слушатели событий
 
 profileForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -91,8 +94,6 @@ cardsContainer.addEventListener('click', (evt)=> {
 
 function openImage(templateContainer, link){
   const templateTitle = templateContainer.querySelector('.element__title');
-  const img = document.querySelector('.popup__image');
-  const imgTitle = document.querySelector('.popup__image-title');
   imgTitle.textContent = templateTitle.textContent;
   img.src = link;
   img.alt = templateTitle.textContent;

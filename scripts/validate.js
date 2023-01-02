@@ -2,7 +2,7 @@
 function disableSubmitButton(popup, config) {
   const buttonSave = popup.querySelector(config.submitButtonSelector)
   if (buttonSave) {
-    buttonSave.classList.toggle(config.inactiveButtonClass)
+    buttonSave.classList.add(config.inactiveButtonClass)
     buttonSave.disabled = true
   }
 } // кнопка popup__save не активна при открытии попапа
@@ -50,6 +50,13 @@ function setEventListeners(formElement, config) {
   const buttonElement = formElement.querySelector(config.submitButtonSelector)
 
   toggleButtonState(inputList, buttonElement, config)
+
+  formElement.addEventListener('reset', () => {
+    // `setTimeout` нужен для того, чтобы дождаться очищения формы (вызов уйдет в конце стэка) и только потом вызвать `toggleButtonState`
+    setTimeout(() => {
+      toggleButtonState(inputList, buttonElement, config)
+    }, 0); // достаточно указать 0 миллисекунд, чтобы после `reset` уже сработало действие
+  });
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
