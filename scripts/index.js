@@ -26,10 +26,6 @@ const imageInput = document.querySelector('input[name="imageInput"]'); // Доб
 const buttonEdit = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
 const buttonAddFoto = document.querySelector('.profile__add-button'); // кнопка для добавления фото
 
-const buttonClose = popupEditProfile.querySelector('.popup__close-button'); // кнопка закрытия popupEditProfile
-const buttonCloseCard = popupNewCard.querySelector('.popup__close-button'); // кнопка закрытия Попап popupNewCard
-const buttonCloseImage = popupImage.querySelector('.popup__close-button');  // кнопка закрытия Попап popupImage
-
 // это профиль тайтл и сабтайтл
 const nameTitle = document.querySelector('.profile__title');
 const jobSubtitle = document.querySelector('.profile__subtitle');
@@ -55,13 +51,20 @@ function closePopupOnEscape(evt) {
 }; // эта функция закрывает попап при нажатии Esc
 
 popups.forEach((popup) => {
+  //добавляет каждому попапу слушателя на событие mousedown
     popup.addEventListener('mousedown', (evt) => {
+      // проверяет класс попап и затем закрывает
         if (evt.target.classList.contains('popup_opened')) {
             closePopup(popup)
         }
+      // проверяет класс кнопки и затем закрывает
+        if (evt.target.classList.contains('popup__close-button')) {
+          closePopup(popup)
+        }
     })
 })  // закрывает попап вне блока при событии mousedown, а не click
-
+// можно ли как-то выполнить на popup__close-button transform: rotate(90deg);???
+// пробовал разное но не получается
 
 // // // это слушатели событий
 
@@ -78,13 +81,10 @@ buttonEdit.addEventListener('click', () => {
   openPopup(popupEditProfile);
 }); // этот слушатель открывает Попап
 
-buttonClose.addEventListener('mousedown', ()=> closePopup(popupEditProfile)); // этот слушатель закрывает Попап popupEditProfile
-buttonCloseCard.addEventListener('mousedown', ()=> closePopup(popupNewCard)); // этот слушатель закрывает Попап popupNewCard
-buttonCloseImage.addEventListener('mousedown', ()=> closePopup(popupImage));  // этот слушатель закрывает Попап popupImage
 
 buttonAddFoto.addEventListener('click', ()=>  openPopup(popupNewCard));  // этот слушатель открывает Попап popupNewCard
 
-cardsContainer.addEventListener('click', (evt)=> {
+cardsContainer.addEventListener('mousedown', (evt)=> {
   if (evt.target.classList.contains('element__like-button')){
     evt.target.classList.toggle('element__like-button_active')
   }
