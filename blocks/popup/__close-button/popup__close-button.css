@@ -19,7 +19,7 @@
   transition: 0.5s ease-in-out;
 }
 
-.popup__close-button:focus{
+.popup__close-button:focus {
   transform: rotate(90deg);
   outline: 0;
 }
