@@ -1,3 +1,13 @@
+export class Card {
+
+  constructor( value  ) {
+    this._title = value.name;
+    this._link  = value.link;
+
+  }
+}
+
+
 function createCard(value) {
   // это template
 const templateContainer = template.querySelector('.element').cloneNode(true);

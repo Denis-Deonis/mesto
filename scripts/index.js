@@ -1,5 +1,5 @@
-// Для себя
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // это переменные формы
 const profileForm = document.querySelector('#editForm');
 const formNewCard = document.querySelector('#newCard');
@@ -40,6 +40,7 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener("keydown", closePopupOnEscape);
+
 } // эта функция закрывает "popup"
 
 
@@ -63,8 +64,6 @@ popups.forEach((popup) => {
         }
     })
 })  // закрывает попап вне блока при событии mousedown, а не click
-// можно ли как-то выполнить на popup__close-button transform: rotate(90deg);???
-// пробовал разное но не получается
 
 // // // это слушатели событий
 
@@ -128,3 +127,4 @@ formNewCard.addEventListener('submit', (evt)=>{
   closePopup(popupNewCard);
   evt.target.reset();
 })
+
