@@ -120,41 +120,13 @@ function openImage(templateContainer, link){
   openPopup(popupImage);
 }  // эта функция открывает картинку
 
-/*
-function createCard(value) {
-  // это template
-const templateContainer = template.querySelector('.element').cloneNode(true);
-const templateTitle = templateContainer.querySelector('.element__title');
-const templateImage = templateContainer.querySelector('.element__image');
-const templateTrash = templateContainer.querySelector('.element__trash');
-const templateLike = templateContainer.querySelector('.element__like-button')
-
-  templateTitle.textContent = value.name;
-  templateImage.src = value.link;
-  templateImage.alt = value.name;
-
-  templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет элемент с картинкой
-
-  templateLike.addEventListener('mousedown', (evt)=> {
-    evt.target.classList.toggle('element__like-button_active')
-  }) // этот слушатель меняет состояние лайка с помощью toggle - очень сокращает код
-
-  templateImage.addEventListener('click', ()=> openImage(templateContainer, value.link)); // этот слушатель открывает картинку
-
-  return templateContainer
-} // эта функция создает элемент с картинкой
-*/
-
-
 function createCard(value) {
   const card = new Card(value, template);
   return card.generateCard();
 }
 
-// initialCards.forEach (card => {cardsContainer.append(createCard(card));});  // добавляет все элементы с картинкой с помощью функции createCard
-
 cardsContainer.append(...initialCards.map(createCard)); // добавляет все элементы с картинкой с помощью функции createCard
-// здесь мапиться то есть дублируется
+
 
 formNewCard.addEventListener('submit', (evt)=>{
   evt.preventDefault();
