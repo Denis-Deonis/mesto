@@ -123,7 +123,7 @@ function openImage(templateContainer, link){
 function createCard(value) {
   const card = new Card(value, template);
   return card.generateCard();
-}
+} // забирает изшаблона Card для добавления элементов через map 
 
 cardsContainer.append(...initialCards.map(createCard)); // добавляет все элементы с картинкой с помощью функции createCard
 
