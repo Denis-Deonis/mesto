@@ -1,4 +1,32 @@
+import {Card} from './Сard.js';
+// import {initialCards, validationConfig} from './dataSet.js'
 
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
 // это переменные формы
 const profileForm = document.querySelector('#editForm');
@@ -92,7 +120,7 @@ function openImage(templateContainer, link){
   openPopup(popupImage);
 }  // эта функция открывает картинку
 
-
+/*
 function createCard(value) {
   // это template
 const templateContainer = template.querySelector('.element').cloneNode(true);
@@ -107,16 +135,26 @@ const templateLike = templateContainer.querySelector('.element__like-button')
 
   templateTrash.addEventListener('click', ()=> templateContainer.remove()); // этот слушатель удаляет элемент с картинкой
 
-  templateLike.addEventListener('mousedown', ()=> {
-    templateLike.classList.toggle('element__like-button_active')
+  templateLike.addEventListener('mousedown', (evt)=> {
+    evt.target.classList.toggle('element__like-button_active')
   }) // этот слушатель меняет состояние лайка с помощью toggle - очень сокращает код
 
   templateImage.addEventListener('click', ()=> openImage(templateContainer, value.link)); // этот слушатель открывает картинку
 
   return templateContainer
 } // эта функция создает элемент с картинкой
+*/
+
+
+function createCard(value) {
+  const card = new Card(value, template);
+  return card.generateCard();
+}
+
+// initialCards.forEach (card => {cardsContainer.append(createCard(card));});  // добавляет все элементы с картинкой с помощью функции createCard
 
 cardsContainer.append(...initialCards.map(createCard)); // добавляет все элементы с картинкой с помощью функции createCard
+// здесь мапиться то есть дублируется
 
 formNewCard.addEventListener('submit', (evt)=>{
   evt.preventDefault();
@@ -128,3 +166,4 @@ formNewCard.addEventListener('submit', (evt)=>{
   evt.target.reset();
 })
 
+export {openImage}

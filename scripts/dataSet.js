@@ -33,3 +33,6 @@ const validationConfig = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'error'
 }
+
+
+export {initialCards, validationConfig}
