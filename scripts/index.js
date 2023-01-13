@@ -1,32 +1,5 @@
 import {Card} from './Сard.js';
-// import {initialCards, validationConfig} from './dataSet.js'
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+import {initialCards, validationConfig} from './dataSet.js'
 
 // это переменные формы
 const profileForm = document.querySelector('#editForm');
@@ -123,7 +96,7 @@ function openImage(templateContainer, link){
 function createCard(value) {
   const card = new Card(value, template);
   return card.generateCard();
-} // забирает изшаблона Card для добавления элементов через map 
+} // забирает изшаблона Card для добавления элементов через map
 
 cardsContainer.append(...initialCards.map(createCard)); // добавляет все элементы с картинкой с помощью функции createCard
 
