@@ -41,9 +41,9 @@ function openPopup(popup) {
 } // эта функция открывает "popup"
 
 function closePopup(popup) {
+  popup.querySelectorAll('.popup__input').value = '';
   popup.classList.remove('popup_opened');
   document.removeEventListener("keydown", closePopupOnEscape);
-
 } // эта функция закрывает "popup"
 
 
@@ -87,11 +87,10 @@ buttonAddFoto.addEventListener('click', ()=>  openPopup(popupNewCard));  // эт
 
 // ниже область по проекту 5-template
 
-function openImage(templateContainer, link){
-  const templateTitle = templateContainer.querySelector('.element__title');
-  imgTitle.textContent = templateTitle.textContent;
+function openImage(link, title) {
+  imgTitle.textContent = title;
   img.src = link;
-  img.alt = templateTitle.textContent;
+  img.alt = title;
   openPopup(popupImage);
 }  // эта функция открывает картинку
 
@@ -116,5 +115,10 @@ formNewCard.addEventListener('submit', (evt)=>{
 // const popupNewValidation = new FormValidator(validationConfig, popupForm);
 // popupNewValidation.enableValidation();
 
+const profileFormValidation = new FormValidator(validationConfig, profileForm);
+profileFormValidation.enableValidation();
+
+const formNewCardFormValidation = new FormValidator(validationConfig, formNewCard);
+formNewCardFormValidation.enableValidation();
 
 export {openImage}

@@ -16,7 +16,7 @@ export class Card {
     this._cardElement.querySelector('.element__like-button').addEventListener('mousedown', (evt)=> {
       evt.target.classList.toggle('element__like-button_active')
     })
-    this._cardsElementImage.addEventListener('click', ()=> openImage(this._templateContainer, this._link));
+    this._cardsElementImage.addEventListener('click', ()=> openImage(this._link,  this._title));
   }
 
   generateCard() {
