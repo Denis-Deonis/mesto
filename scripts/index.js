@@ -9,7 +9,6 @@ const template = document.querySelector('#element-template').content;
 
 // это переменные попап
 const popups = document.querySelectorAll('.popup')
-const popupForm = document.querySelectorAll('.popup__form');
 
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupNewCard = document.querySelector('.popup_type_add-card');
@@ -35,13 +34,20 @@ const jobSubtitle = document.querySelector('.profile__subtitle');
 
 const cardsContainer = document.querySelector('.elements__list');
 
+const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
+const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
+
+// Валидатор
+profileFormValidation.enableValidation();
+formNewCardFormValidation.enableValidation();
+
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener("keydown", closePopupOnEscape);
 } // эта функция открывает "popup"
 
 function closePopup(popup) {
-  popup.querySelectorAll('.popup__input').value = '';
   popup.classList.remove('popup_opened');
   document.removeEventListener("keydown", closePopupOnEscape);
 } // эта функция закрывает "popup"
@@ -80,10 +86,16 @@ profileForm.addEventListener('submit', (evt) => {
 buttonEdit.addEventListener('click', () => {
   nameInput.value = nameTitle.textContent;
   jobInput.value = jobSubtitle.textContent;
+
   openPopup(popupEditProfile);
+
+
 }); // этот слушатель открывает Попап
 
-buttonAddFoto.addEventListener('click', ()=>  openPopup(popupNewCard));  // этот слушатель открывает Попап popupNewCard
+buttonAddFoto.addEventListener('click', (evt)=> {
+  formNewCardFormValidation.resetValidation();
+  openPopup(popupNewCard);
+  });  // этот слушатель открывает Попап popupNewCard
 
 // ниже область по проекту 5-template
 
@@ -110,15 +122,7 @@ formNewCard.addEventListener('submit', (evt)=>{
   cardsContainer.prepend(newCard);
   closePopup(popupNewCard);
   evt.target.reset();
+  formNewCardFormValidation.resetValidation();
 })
-
-// const popupNewValidation = new FormValidator(validationConfig, popupForm);
-// popupNewValidation.enableValidation();
-
-const profileFormValidation = new FormValidator(validationConfig, profileForm);
-profileFormValidation.enableValidation();
-
-const formNewCardFormValidation = new FormValidator(validationConfig, formNewCard);
-formNewCardFormValidation.enableValidation();
 
 export {openImage}
