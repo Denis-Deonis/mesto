@@ -1,4 +1,5 @@
 import {Card} from './Сard.js';
+import {FormValidator} from './FormValidator.js';
 import {initialCards, validationConfig} from './dataSet.js'
 
 // это переменные формы
@@ -8,6 +9,7 @@ const template = document.querySelector('#element-template').content;
 
 // это переменные попап
 const popups = document.querySelectorAll('.popup')
+const popupForm = document.querySelectorAll('.popup__form');
 
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupNewCard = document.querySelector('.popup_type_add-card');
@@ -110,5 +112,9 @@ formNewCard.addEventListener('submit', (evt)=>{
   closePopup(popupNewCard);
   evt.target.reset();
 })
+
+// const popupNewValidation = new FormValidator(validationConfig, popupForm);
+// popupNewValidation.enableValidation();
+
 
 export {openImage}
