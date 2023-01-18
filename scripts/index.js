@@ -2,6 +2,13 @@ import {Card} from './Сard.js';
 import {FormValidator} from './FormValidator.js';
 import {initialCards, validationConfig} from './dataSet.js'
 
+/* Привет это к проекту не относится, просто это моя заморочка
+  я сделал, если кликнуть по кнопке закрытия он крутится .popup__close-button:focus {
+  transform: rotate(90deg);  outline: 0;}, но как реализовать transform: rotate(90deg);
+  на закрытие кнопки esc и по оверлею разные способы пробовал, но не получается.
+  Я имею ввиду для опыта, чтобы я мог применить в своих проектах.
+*/
+
 // это переменные формы
 const profileForm = document.querySelector('#editForm');
 const formNewCard = document.querySelector('#newCard');
@@ -99,7 +106,7 @@ buttonAddFoto.addEventListener('click', (evt)=> {
 
 // ниже область по проекту 5-template
 
-function openImage(link, title) {
+function handleCardClick(link, title) {
   imgTitle.textContent = title;
   img.src = link;
   img.alt = title;
@@ -107,7 +114,7 @@ function openImage(link, title) {
 }  // эта функция открывает картинку
 
 function createCard(value) {
-  const card = new Card(value, template);
+  const card = new Card(value, template, handleCardClick);
   return card.generateCard();
 } // забирает изшаблона Card для добавления элементов через map
 
@@ -124,5 +131,3 @@ formNewCard.addEventListener('submit', (evt)=>{
   evt.target.reset();
   formNewCardFormValidation.resetValidation();
 })
-
-export {openImage}
