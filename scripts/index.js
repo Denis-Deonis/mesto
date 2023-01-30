@@ -2,16 +2,10 @@ import {Card} from './Сard.js';
 import {FormValidator} from './FormValidator.js';
 import {initialCards, validationConfig} from './dataSet.js'
 
-/* Привет это к проекту не относится, просто это моя заморочка
-  я сделал, если кликнуть по кнопке закрытия он крутится .popup__close-button:focus {
-  transform: rotate(90deg);  outline: 0;}, но как реализовать transform: rotate(90deg);
-  на закрытие кнопки esc и по оверлею разные способы пробовал, но не получается.
-  Я имею ввиду для опыта, чтобы я мог применить в своих проектах.
-*/
-
 // это переменные формы
-const profileForm = document.querySelector('#editForm');
-const formNewCard = document.querySelector('#newCard');
+const profileForm = document.forms.editForm;
+const formNewCard = document.forms.newCard;
+
 const template = document.querySelector('#element-template').content;
 
 // это переменные попап
