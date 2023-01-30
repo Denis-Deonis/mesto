@@ -6,6 +6,14 @@ import {initialCards, validationConfig} from './dataSet.js'
 const profileForm = document.forms.editForm;
 const formNewCard = document.forms.newCard;
 
+// это поля инпутов формы, ищем через "name"
+const nameInput = profileForm.elements.nameInput; // Редактирование имени
+const jobInput  = profileForm.elements.jobInput; // Редактирование информации о работе
+
+const titleInput = formNewCard.elements.titleInput; // Добавление заголовка картинки
+const imageInput = formNewCard.elements.imageInput; // Добавление ссылки на картинку
+
+
 const template = document.querySelector('#element-template').content;
 
 // это переменные попап
@@ -17,13 +25,6 @@ const popupImage = document.querySelector('.popup_type_image');
 
 const img = document.querySelector('.popup__image');
 const imgTitle = document.querySelector('.popup__image-title');
-
-
-// это поля инпутов в DOM, ищем через "name" очень удобно не нужно ID  или водить новый класс
-const nameInput = document.querySelector('input[name="nameInput"]'); // Редактирование имени
-const jobInput = document.querySelector('input[name="jobInput"]'); // Редактирование информации о работе
-const titleInput = document.querySelector('input[name="titleInput"]'); // Добавление заголовка картинки
-const imageInput = document.querySelector('input[name="imageInput"]'); // Добавление ссылки на картинку
 
 // это кнопки
 const buttonEdit = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
