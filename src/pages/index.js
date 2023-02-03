@@ -1,6 +1,6 @@
-import {Card} from './Сard.js';
-import {FormValidator} from './FormValidator.js';
-import {initialCards, validationConfig} from './dataSet.js'
+import {Card} from '../components/Сard';
+import {FormValidator} from '../components/FormValidator';
+import {initialCards, validationConfig} from '../utils/dataSet'
 
 // это переменные формы
 const profileForm = document.forms.editForm;
