@@ -1,3 +1,5 @@
+import './index.css';
+
 import {Card} from '../components/Сard';
 import {FormValidator} from '../components/FormValidator';
 import {initialCards, validationConfig} from '../utils/dataSet'
