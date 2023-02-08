@@ -5,19 +5,21 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    main: './src/pages/index.js'
+    index: path.resolve(__dirname, 'src', 'pages', 'index.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
+    filename: 'index.js',
     publicPath: '',
+    clean: true,
   },
   mode: 'development',
   devServer: {
     static: path.resolve(__dirname, './dist'),
+    hot: true,
     open: true,
     compress: true,
-    watchFiles: ["./src/*.html"],
+    watchFiles: ['./src/*.html'],
     port: 8080
   },
   module: {
