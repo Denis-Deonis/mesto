@@ -1,40 +1,19 @@
-import {Card} from '../components/Сard';
-import {FormValidator} from '../components/FormValidator';
+import './index.css';
+
+import {profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
+  buttonEdit, buttonAddFoto, template, popupEditProfile, popupNewCard,
+  popupImage, nameTitle, jobSubtitle, cardsContainer} from '../utils/constants.js';
+
 import {initialCards, validationConfig} from '../utils/dataSet'
 
-// это переменные формы
-const profileForm = document.forms.editForm;
-const formNewCard = document.forms.newCard;
+import {Card} from '../components/Сard';
+import {FormValidator} from '../components/FormValidator';
+import {Popup} from '../components/Popup';
+import {PoppWithForm} from '../components/PopupWithForm';
+import {PopupWithImage} from '../components/PopupWithImage';
+import {Section} from '../components/Section';
+import {UserInfo} from '../components/UserInfo';
 
-// это поля инпутов формы, ищем через "name"
-const nameInput = profileForm.elements.nameInput; // Редактирование имени
-const jobInput  = profileForm.elements.jobInput; // Редактирование информации о работе
-
-const titleInput = formNewCard.elements.titleInput; // Добавление заголовка картинки
-const imageInput = formNewCard.elements.imageInput; // Добавление ссылки на картинку
-
-
-const template = document.querySelector('#element-template').content;
-
-// это переменные попап
-const popups = document.querySelectorAll('.popup')
-
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const popupNewCard = document.querySelector('.popup_type_add-card');
-const popupImage = document.querySelector('.popup_type_image');
-
-const img = document.querySelector('.popup__image');
-const imgTitle = document.querySelector('.popup__image-title');
-
-// это кнопки
-const buttonEdit = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
-const buttonAddFoto = document.querySelector('.profile__add-button'); // кнопка для добавления фото
-
-// это профиль тайтл и сабтайтл
-const nameTitle = document.querySelector('.profile__title');
-const jobSubtitle = document.querySelector('.profile__subtitle');
-
-const cardsContainer = document.querySelector('.elements__list');
 
 const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
 const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
@@ -42,6 +21,8 @@ const profileFormValidation = new FormValidator(validationConfig, popupEditProfi
 // Валидатор
 profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
+
+
 
 
 function openPopup(popup) {

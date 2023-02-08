@@ -8,6 +8,12 @@ export class Popup{
     evt.code === "Escape" && this.close();
   }
 
+  // _handleEscClose = (evt) => {
+  //   if (evt.key === 'Escape') {
+  //     this.close();
+  //   }
+  // }  если сработает верхнее то это удалить, а если нет то наоборот
+
   close() {
     this.popup.classList.remove('popup_opened');
     document.removeEventListener("keydown", this._handleEscClose);
@@ -19,7 +25,14 @@ export class Popup{
   }
 
   setEventListeners() {
-
+    this.popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+          this.close()
+      }
+      if (evt.target.classList.contains('popup__close-button')) {
+          this.close()
+      }
+    })
   }
 
 }
