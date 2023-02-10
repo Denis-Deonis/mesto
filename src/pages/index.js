@@ -9,92 +9,71 @@ import {initialCards, validationConfig} from '../utils/dataSet'
 import {Card} from '../components/Сard';
 import {FormValidator} from '../components/FormValidator';
 import {Popup} from '../components/Popup';
-import {PoppWithForm} from '../components/PopupWithForm';
+import {PopupWithForm} from '../components/PopupWithForm';
 import {PopupWithImage} from '../components/PopupWithImage';
 import {Section} from '../components/Section';
 import {UserInfo} from '../components/UserInfo';
 
+// создание карточки
+function createCard(value, template) {
+  const card = new Card(value, template, () => popupPhotos.open(value.link, value.name));
+  return card.generateCard();
+}
 
+// Валидатор
 const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
 const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
 
-// Валидатор
 profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
+// открытие картинки по нажатию
+const popupPhotos = new PopupWithImage(popupImage);
+popupPhotos.setEventListeners();
 
+// рендерит карточки
+const cards = new Section({
+    items: initialCards,
+    renderer: (value)=> {
+      const cardElement = createCard(value, template);
+      cards.addItem(cardElement);
+  },
+  cardsContainer
+});
 
+cards.renderItems();
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener("keydown", closePopupOnEscape);
-} // эта функция открывает "popup"
+// информация о пользователе
+const userInfo = new UserInfo({nameInput, jobInput,});
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener("keydown", closePopupOnEscape);
-} // эта функция закрывает "popup"
-
-
-function closePopupOnEscape(evt) {
-  if(evt.code == "Escape") {
-    const popup = document.querySelector(".popup_opened"); // если переменая глобально, то не работает
-    closePopup(popup);
-  }
-}; // эта функция закрывает попап при нажатии Esc
-
-popups.forEach((popup) => {
-  //добавляет каждому попапу слушателя на событие mousedown
-    popup.addEventListener('mousedown', (evt) => {
-      // проверяет класс попап и затем закрывает
-        if (evt.target.classList.contains('popup_opened')) {
-            closePopup(popup)
-        }
-      // проверяет класс кнопки и затем закрывает
-        if (evt.target.classList.contains('popup__close-button')) {
-          closePopup(popup)
-        }
-    })
-})  // закрывает попап вне блока при событии mousedown, а не click
-
-// // // это слушатели событий
-
-profileForm.addEventListener('submit', (evt) => {
+// класса редактирования профиля
+const popupProfile = new PopupWithForm(profileForm, (evt)=> {
   evt.preventDefault();
-  nameTitle.textContent = nameInput.value;
-  jobSubtitle.textContent = jobInput.value;
-  closePopup(popupEditProfile);
-}); // этот слушатель обработчик «отправки» формы должен быть выше слушателя который открывает Попап. Если будет по другому угроблю опять 3 часа
+  userInfo.setUserInfo({nameInput, jobInput });
+  popupProfile.close();
+});
+
+popupProfile.setEventListeners();
+
+
+const popupNewCard = new PopupWithForm(formNewCard, (value)=> {
+  cards.addNewItem(createCard(value));
+  popupNewCard.close();
+});
+
+popupNewCard.setEventListeners();
+
+
 
 buttonEdit.addEventListener('click', () => {
-  nameInput.value = nameTitle.textContent;
-  jobInput.value = jobSubtitle.textContent;
-
-  openPopup(popupEditProfile);
-
-
+  popupProfile();
 }); // этот слушатель открывает Попап
 
-buttonAddFoto.addEventListener('click', (evt)=> {
-  formNewCardFormValidation.resetValidation();
-  openPopup(popupNewCard);
-  });  // этот слушатель открывает Попап popupNewCard
 
-// ниже область по проекту 5-template
 
-function handleCardClick(link, title) {
-  imgTitle.textContent = title;
-  img.src = link;
-  img.alt = title;
-  openPopup(popupImage);
-}  // эта функция открывает картинку
-
-function createCard(value) {
-  const card = new Card(value, template, handleCardClick);
-  return card.generateCard();
-} // забирает изшаблона Card для добавления элементов через map
-
-cardsContainer.append(...initialCards.map(createCard)); // добавляет все элементы с картинкой с помощью функции createCard
+buttonAddFoto.addEventListener('click', ()=> {
+  popupNewCard();
+});
 
 
 formNewCard.addEventListener('submit', (evt)=>{
