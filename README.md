@@ -44,6 +44,8 @@
 * Media queries
 * Adaptive UI;
 * Grid Layout;
+* Webpack5
+* Node.js 
 
 ## Система управления версиями
 
