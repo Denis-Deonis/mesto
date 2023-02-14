@@ -56,12 +56,12 @@ const popupProfile = new PopupWithForm(profileForm, (evt)=> {
 popupProfile.setEventListeners();
 
 
-const popupNewCard = new PopupWithForm(formNewCard, (value)=> {
+const popupFormNewCard = new PopupWithForm(formNewCard, (value)=> {
   cards.addNewItem(createCard(value));
-  popupNewCard.close();
+  popupFormNewCard.close();
 });
 
-popupNewCard.setEventListeners();
+popupFormNewCard.setEventListeners();
 
 
 
