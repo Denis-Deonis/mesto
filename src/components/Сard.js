@@ -8,7 +8,7 @@ export class Card {
   }
 
   _getTemplateElement() {
-    return this._templateContainer.querySelector('.element').cloneNode(true);
+    return document.querySelector(this._templateContainer).content.querySelector('.element').cloneNode(true);
   }
 
   _toggleLike(evt) {

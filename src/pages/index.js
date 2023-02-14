@@ -15,8 +15,8 @@ import {Section} from '../components/Section';
 import {UserInfo} from '../components/UserInfo';
 
 // создание карточки
-function createCard(value, template) {
-  const card = new Card(value, template, () => popupPhotos.open(value.link, value.name));
+function createCard(value) {
+  const card = new Card(value, '#element-template', () => popupPhotos.open(value.link, value.name));
   return card.generateCard();
 }
 
@@ -28,20 +28,17 @@ profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
 // открытие картинки по нажатию
-const popupPhotos = new PopupWithImage(popupImage);
+const popupPhotos = new PopupWithImage('.popup_type_image');
 popupPhotos.setEventListeners();
 
 // рендерит карточки
 const cards = new Section({
-    items: initialCards,
     renderer: (value)=> {
-      const cardElement = createCard(value, template);
-      cards.addItem(cardElement);
-  },
-  cardsContainer
-});
+      cards.addItem(createCard(value));
+  }
+}, '.elements__list');
 
-cards.renderItems();
+
 
 // информация о пользователе
 const userInfo = new UserInfo({nameInput, jobInput,});
@@ -86,3 +83,6 @@ formNewCard.addEventListener('submit', (evt)=>{
   evt.target.reset();
   formNewCardFormValidation.resetValidation();
 })
+
+
+cards.renderItems(initialCards.reverse);

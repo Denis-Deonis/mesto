@@ -13,11 +13,11 @@ const imageInput = formNewCard.elements.imageInput; // Добавление сс
 const buttonEdit = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
 const buttonAddFoto = document.querySelector('.profile__add-button'); // кнопка для добавления фото
 
-const template = document.querySelector('#element-template').content;
+const template = '#element-template';
 
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupNewCard = document.querySelector('.popup_type_add-card');
-const popupImage = document.querySelector('.popup_type_image');
+const popupImage = '.popup_type_image';
 
 
 // это профиль тайтл и сабтайтл
