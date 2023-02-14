@@ -1,24 +1,39 @@
 import './index.css';
 
-import {profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
-  buttonEdit, buttonAddFoto, template, popupEditProfile, popupNewCard,
-  popupImage, nameTitle, jobSubtitle, cardsContainer} from '../utils/constants.js';
+import {cardsContainer, profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
+  buttonEdit, buttonAddFoto, popupEditProfile, popupNewCard,
+  nameTitle, jobSubtitle,} from '../utils/constants.js';
 
-import {initialCards, validationConfig} from '../utils/dataSet'
+import {initialCards} from '../utils/initialCards';
+import { validationConfig } from '../utils/validationConfig';
+import { selectorConfig } from '../utils/selectorConfig';
 
 import {Card} from '../components/Сard';
-import {FormValidator} from '../components/FormValidator';
-import {Popup} from '../components/Popup';
-import {PopupWithForm} from '../components/PopupWithForm';
 import {PopupWithImage} from '../components/PopupWithImage';
+import {FormValidator} from '../components/FormValidator';
+import {PopupWithForm} from '../components/PopupWithForm';
 import {Section} from '../components/Section';
 import {UserInfo} from '../components/UserInfo';
 
 // создание карточки
-function createCard(value, template) {
-  const card = new Card(value, template, () => popupPhotos.open(value.link, value.name));
-  return card.generateCard();
+function createCard(value) {
+  return new Card(value, '#element-template', () => {popupPhotos.open(value.link, value.name)}).generateCard();
 }
+
+// открытие картинки по нажатию
+const popupPhotos = new PopupWithImage(selectorConfig.popupImageSelector);
+popupPhotos.setEventListeners();
+
+// рендерит карточки
+const cards = new Section(
+  {
+    renderer: (value)=> {
+      cards.addItem(createCard(value));
+    }
+  }, '.elements__list');
+
+cards.renderItems(initialCards.reverse());
+
 
 // Валидатор
 const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
@@ -27,21 +42,7 @@ const profileFormValidation = new FormValidator(validationConfig, popupEditProfi
 profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
-// открытие картинки по нажатию
-const popupPhotos = new PopupWithImage(popupImage);
-popupPhotos.setEventListeners();
 
-// рендерит карточки
-const cards = new Section({
-    items: initialCards,
-    renderer: (value)=> {
-      const cardElement = createCard(value, template);
-      cards.addItem(cardElement);
-  },
-  cardsContainer
-});
-
-cards.renderItems();
 
 // информация о пользователе
 const userInfo = new UserInfo({nameInput, jobInput,});
@@ -56,12 +57,12 @@ const popupProfile = new PopupWithForm(profileForm, (evt)=> {
 popupProfile.setEventListeners();
 
 
-const popupNewCard = new PopupWithForm(formNewCard, (value)=> {
+const popupFormNewCard = new PopupWithForm(formNewCard, (value)=> {
   cards.addNewItem(createCard(value));
-  popupNewCard.close();
+  popupFormNewCard.close();
 });
 
-popupNewCard.setEventListeners();
+popupFormNewCard.setEventListeners();
 
 
 

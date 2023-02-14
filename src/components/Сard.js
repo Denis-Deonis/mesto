@@ -8,15 +8,15 @@ export class Card {
   }
 
   _getTemplateElement() {
-    return this._templateContainer.querySelector('.element').cloneNode(true);
+    return document.querySelector(this._templateContainer).querySelector('.element').cloneNode(true);
   }
 
   _toggleLike(evt) {
     evt.target.classList.toggle('element__like-button_active')
   }
 
-  _deleteCard() {
-    this._cardElement.remove();
+  _deleteCard(evt) {
+    evt.target.closest('.element').remove();
   }
 
 
