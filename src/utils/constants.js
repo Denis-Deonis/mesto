@@ -1,6 +1,4 @@
-
-const template = '#element-template';
-const cardsContainer = '.elements__list';
+const cardsContainer = document.querySelector('.elements__list');
 
 // это переменные формы
 const profileForm = document.forms.editForm;

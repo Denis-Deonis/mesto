@@ -1,8 +1,8 @@
 import './index.css';
 
-import {template, cardsContainer, profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
+import {cardsContainer, profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
   buttonEdit, buttonAddFoto, popupEditProfile, popupNewCard,
-  nameTitle, jobSubtitle, cardsContainer} from '../utils/constants.js';
+  nameTitle, jobSubtitle,} from '../utils/constants.js';
 
 import {initialCards} from '../utils/initialCards';
 import { validationConfig } from '../utils/validationConfig';
