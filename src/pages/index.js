@@ -15,72 +15,75 @@ import {UserInfo} from '../components/UserInfo';
 
 // создание карточки
 function createCard(value) {
-  return new Card(value, '#element-template', () => {popupPhotos.open(value.link, value.name)}).generateCard();
+  return new Card(value, template, () => {popupPhotos.open(value.link, value.name)}).generateCard();
 }
 
 // открытие картинки по нажатию
 const popupPhotos = new PopupWithImage(popupImage);
 popupPhotos.setEventListeners();
 
-// // Валидатор
-// const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
-// const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
+// рендерит карточки
+const cards = new Section({
+  items: initialCards,
+  renderer: (value)=> {
+    const cardElement = createCard(value, template);
+    cards.addItem(cardElement);
+},
+cardsContainer
+});
 
-// profileFormValidation.enableValidation();
-// formNewCardFormValidation.enableValidation();
-
-// // рендерит карточки
-// const cards = new Section({
-//     items: initialCards,
-//     renderer: (value)=> {
-//       const cardElement = createCard(value, template);
-//       cards.addItem(cardElement);
-//   },
-//   cardsContainer
-// });
-
-// cards.renderItems();
-
-// // информация о пользователе
-// const userInfo = new UserInfo({nameInput, jobInput,});
-
-// // класса редактирования профиля
-// const popupProfile = new PopupWithForm(profileForm, (evt)=> {
-//   evt.preventDefault();
-//   userInfo.setUserInfo({nameInput, jobInput });
-//   popupProfile.close();
-// });
-
-// popupProfile.setEventListeners();
+cards.renderItems();
 
 
-// const popupFormNewCard = new PopupWithForm(formNewCard, (value)=> {
-//   cards.addNewItem(createCard(value));
-//   popupFormNewCard.close();
-// });
+// Валидатор
+const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
+const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
 
-// popupFormNewCard.setEventListeners();
+profileFormValidation.enableValidation();
+formNewCardFormValidation.enableValidation();
 
 
 
-// buttonEdit.addEventListener('click', () => {
-//   popupProfile();
-// }); // этот слушатель открывает Попап
+// информация о пользователе
+const userInfo = new UserInfo({nameInput, jobInput,});
+
+// класса редактирования профиля
+const popupProfile = new PopupWithForm(profileForm, (evt)=> {
+  evt.preventDefault();
+  userInfo.setUserInfo({nameInput, jobInput });
+  popupProfile.close();
+});
+
+popupProfile.setEventListeners();
+
+
+const popupFormNewCard = new PopupWithForm(formNewCard, (value)=> {
+  cards.addNewItem(createCard(value));
+  popupFormNewCard.close();
+});
+
+popupFormNewCard.setEventListeners();
 
 
 
-// buttonAddFoto.addEventListener('click', ()=> {
-//   popupNewCard();
-// });
+buttonEdit.addEventListener('click', () => {
+  popupProfile();
+}); // этот слушатель открывает Попап
 
 
-// formNewCard.addEventListener('submit', (evt)=>{
-//   evt.preventDefault();
-//   const name = titleInput.value;
-//   const link = imageInput.value;
-//   const newCard = createCard({ name, link });
-//   cardsContainer.prepend(newCard);
-//   closePopup(popupNewCard);
-//   evt.target.reset();
-//   formNewCardFormValidation.resetValidation();
-// })
+
+buttonAddFoto.addEventListener('click', ()=> {
+  popupNewCard();
+});
+
+
+formNewCard.addEventListener('submit', (evt)=>{
+  evt.preventDefault();
+  const name = titleInput.value;
+  const link = imageInput.value;
+  const newCard = createCard({ name, link });
+  cardsContainer.prepend(newCard);
+  closePopup(popupNewCard);
+  evt.target.reset();
+  formNewCardFormValidation.resetValidation();
+})
