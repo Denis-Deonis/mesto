@@ -15,9 +15,9 @@ const buttonAddFoto = document.querySelector('.profile__add-button'); // кно�
 
 const template = document.querySelector('#element-template').content;
 
+const popupImage = document.querySelector('.popup_type_image');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupNewCard = document.querySelector('.popup_type_add-card');
-const popupImage = document.querySelector('.popup_type_image');
 
 
 // это профиль тайтл и сабтайтл
