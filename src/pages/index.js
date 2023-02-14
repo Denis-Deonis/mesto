@@ -17,7 +17,7 @@ import {UserInfo} from '../components/UserInfo';
 
 // создание карточки
 function createCard(value) {
-  return new Card(value, template, () => {popupPhotos.open(value.link, value.name)}).generateCard();
+  return new Card(value, '#element-template', () => {popupPhotos.open(value.link, value.name)}).generateCard();
 }
 
 // открытие картинки по нажатию
@@ -30,7 +30,7 @@ const cards = new Section(
     renderer: (value)=> {
       cards.addItem(createCard(value));
     }
-  }, cardsContainer);
+  }, '.elements__list');
 
 cards.renderItems(initialCards.reverse());
 
