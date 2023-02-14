@@ -1,10 +1,12 @@
 import './index.css';
 
-import {profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
-  buttonEdit, buttonAddFoto, template, popupEditProfile, popupNewCard,
-  popupImage, nameTitle, jobSubtitle, cardsContainer} from '../utils/constants.js';
+import {template, cardsContainer, profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
+  buttonEdit, buttonAddFoto, popupEditProfile, popupNewCard,
+  nameTitle, jobSubtitle, cardsContainer} from '../utils/constants.js';
 
-import {initialCards, validationConfig} from '../utils/dataSet'
+import {initialCards} from '../utils/initialCards';
+import { validationConfig } from '../utils/validationConfig';
+import { selectorConfig } from '../utils/selectorConfig';
 
 import {Card} from '../components/Сard';
 import {PopupWithImage} from '../components/PopupWithImage';
@@ -19,20 +21,18 @@ function createCard(value) {
 }
 
 // открытие картинки по нажатию
-const popupPhotos = new PopupWithImage(popupImage);
+const popupPhotos = new PopupWithImage(selectorConfig.popupImageSelector);
 popupPhotos.setEventListeners();
 
 // рендерит карточки
-const cards = new Section({
-  items: initialCards,
-  renderer: (value)=> {
-    const cardElement = createCard(value, template);
-    cards.addItem(cardElement);
-},
-cardsContainer
-});
+const cards = new Section(
+  {
+    renderer: (value)=> {
+      cards.addItem(createCard(value));
+    }
+  }, cardsContainer);
 
-cards.renderItems();
+cards.renderItems(initialCards.reverse());
 
 
 // Валидатор
