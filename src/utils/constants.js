@@ -1,14 +1,16 @@
-const template = '#element-template';
+const template = '.element-template';
 const cardsContainer = '.elements__list';
 const popupImage = '.popup_type_image';
+
+const nameInput = ".profile__title";
+const jobInput  = ".profile__subtitle";
 
 // это переменные формы
 const profileForm = document.forms.editForm;
 const formNewCard = document.forms.newCard;
 
-// это поля инпутов формы, ищем через "name"
-const nameInput = profileForm.elements.nameInput; // Редактирование имени
-const jobInput  = profileForm.elements.jobInput; // Редактирование информации о работе
+
+
 
 const titleInput = formNewCard.elements.titleInput; // Добавление заголовка картинки
 const imageInput = formNewCard.elements.imageInput; // Добавление ссылки на картинку

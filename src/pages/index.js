@@ -21,7 +21,7 @@ profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
 // информация о пользователе
-const userInfo = new UserInfo({nameInput, jobInput,});
+const userInfo = new UserInfo({nameInput: nameInput, jobInput: jobInput,});
 
 
 // создание карточки
@@ -49,6 +49,7 @@ cards.renderItems();
 // класса редактирования профиля
 const popupProfile = new PopupWithForm(profileForm, (evt)=> {
   evt.preventDefault();
+  const formValues = popupProfile.getFormValues();
   userInfo.setUserInfo({nameInput, jobInput });
   popupProfile.close();
 });
