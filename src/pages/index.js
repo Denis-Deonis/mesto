@@ -29,7 +29,7 @@ function createCard(value, template) {
   const card = new Card(value, template, () => {
     const popupPhotos = new PopupWithImage(popupImage);
     popupPhotos.setEventListeners();
-    popupPhotos.open(value.link, value.name)
+    popupPhotos.open({value})
   });
   return card.generateCard();
 }
