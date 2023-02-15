@@ -1,24 +1,17 @@
 import './index.css';
 
-import {profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
-  buttonEdit, buttonAddFoto, template, popupEditProfile, popupNewCard,
-  popupImage, nameTitle, jobSubtitle, cardsContainer} from '../utils/constants.js';
+import {template, cardsContainer, profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
+  buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
+  popupImage, nameTitle, jobSubtitle} from '../utils/constants.js';
 
 import {initialCards, validationConfig} from '../utils/dataSet'
 
 import {Card} from '../components/Сard';
 import {FormValidator} from '../components/FormValidator';
-import {Popup} from '../components/Popup';
 import {PopupWithForm} from '../components/PopupWithForm';
 import {PopupWithImage} from '../components/PopupWithImage';
 import {Section} from '../components/Section';
 import {UserInfo} from '../components/UserInfo';
-
-// создание карточки
-function createCard(value) {
-  const card = new Card(value, '#element-template', () => popupPhotos.open(value.link, value.name));
-  return card.generateCard();
-}
 
 // Валидатор
 const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
@@ -27,21 +20,31 @@ const profileFormValidation = new FormValidator(validationConfig, popupEditProfi
 profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
-// открытие картинки по нажатию
-const popupPhotos = new PopupWithImage('.popup_type_image');
-popupPhotos.setEventListeners();
+// информация о пользователе
+const userInfo = new UserInfo({nameInput, jobInput,});
+
+
+// создание карточки
+function createCard(value, template) {
+  const card = new Card(value, template, () => {
+    const popupPhotos = new PopupWithImage(popupImage);
+    popupPhotos.setEventListeners();
+    popupPhotos.open(value.link, value.name)
+  });
+  return card.generateCard();
+}
 
 // рендерит карточки
 const cards = new Section({
-    renderer: (value)=> {
-      cards.addItem(createCard(value));
-  }
-}, '.elements__list');
+  items: initialCards,
+  renderer: (value)=> {
+    cards.addItem(createCard(value, template));
+}
+}, cardsContainer);
+
+cards.renderItems();
 
 
-
-// информация о пользователе
-const userInfo = new UserInfo({nameInput, jobInput,});
 
 // класса редактирования профиля
 const popupProfile = new PopupWithForm(profileForm, (evt)=> {
@@ -85,4 +88,4 @@ formNewCard.addEventListener('submit', (evt)=>{
 })
 
 
-cards.renderItems(initialCards.reverse);
+

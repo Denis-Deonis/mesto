@@ -4,15 +4,15 @@ export class Popup{
     this._handleEscClose = this._handleEscClose.bind(this);
   }
 
-  _handleEscClose(evt) {
-    evt.code === "Escape" && this.close();
-  }
+  // _handleEscClose(evt) {
+  //   evt.code === "Escape" && this.close();
+  // }
 
-  // _handleEscClose = (evt) => {
-  //   if (evt.key === 'Escape') {
-  //     this.close();
-  //   }
-  // }  если сработает верхнее то это удалить, а если нет то наоборот
+  _handleEscClose = (evt) => {
+    if (evt.key === 'Escape') {
+      this.close();
+    }
+  }
 
   close() {
     this.popup.classList.remove('popup_opened');
