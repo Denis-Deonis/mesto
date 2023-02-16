@@ -8,24 +8,11 @@ const jobInput  = ".profile__subtitle";
 const popupEditProfile = '.popup_type_edit-profile';
 const popupNewCard = '.popup_type_add-card';
 
-// это переменные формы
-const profileForm = document.forms.editForm;
-const formNewCard = document.forms.newCard;
+
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAddFoto = document.querySelector('.profile__add-button');
 
 
-const titleInput = formNewCard.elements.titleInput; // Добавление заголовка картинки
-const imageInput = formNewCard.elements.imageInput; // Добавление ссылки на картинку
-
-// это кнопки
-const buttonEdit = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
-const buttonAddFoto = document.querySelector('.profile__add-button'); // кнопка для добавления фото
-
-
-// это профиль тайтл и сабтайтл
-const nameTitle = document.querySelector('.profile__title');
-const jobSubtitle = document.querySelector('.profile__subtitle');
-
-
-export {template, cardsContainer, profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
+export {template, cardsContainer,  nameInput, jobInput,
   buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
-  popupImage, nameTitle, jobSubtitle}
+  popupImage, }

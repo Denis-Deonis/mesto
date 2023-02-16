@@ -1,8 +1,8 @@
 import './index.css';
 
-import {template, cardsContainer, profileForm, formNewCard, nameInput, jobInput, titleInput, imageInput,
+import {template, cardsContainer,  nameInput, jobInput,
   buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
-  popupImage, nameTitle, jobSubtitle} from '../utils/constants.js';
+  popupImage, } from '../utils/constants.js';
 
 import {initialCards, validationConfig} from '../utils/dataSet'
 
@@ -13,18 +13,14 @@ import {PopupWithImage} from '../components/PopupWithImage';
 import {Section} from '../components/Section';
 import {UserInfo} from '../components/UserInfo';
 
-// Валидатор
 const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
 const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
 
 profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
-// информация о пользователе
 const userInfo = new UserInfo({nameInput: nameInput, jobInput: jobInput,});
 
-
-// создание карточки
 function createCard(value, template) {
   const card = new Card(value, template, () => {
     const popupPhotos = new PopupWithImage(popupImage);
@@ -34,7 +30,6 @@ function createCard(value, template) {
   return card.generateCard();
 }
 
-// рендерит карточки
 const cards = new Section({
   items: initialCards,
   renderer: (value)=> {
@@ -44,50 +39,33 @@ const cards = new Section({
 
 cards.renderItems();
 
-
-
-// класса редактирования профиля
-const popupProfile = new PopupWithForm(popupEditProfile, (evt)=> {
-  evt.preventDefault();
-  const formValues = popupProfile.getFormValues();
-  userInfo.setUserInfo({nameInput: formValues.nameInput, jobInput: formValues.jobInput });
+function formValuesProfile(value) {
+  userInfo.setUserInfo(value.nameInput, value.jobInput);
   popupProfile.close();
-});
+}
+
+const popupProfile = new PopupWithForm(".popup_type_edit-profile", formValuesProfile);
 
 popupProfile.setEventListeners();
 
-
-const popupFormNewCard = new PopupWithForm(popupNewCard, (value)=> {
-  evt.preventDefault();
-  cards.addNewItem(createCard(value));
+const popupFormNewCard = new PopupWithForm('.popup_type_add-card', (evt)=> {
+  
+  const formValues = popupFormNewCard.getFormValues();
+  const card = createCard({formValues}, template);
+  cards.addNewItem(card);
   popupFormNewCard.close();
 });
 
 popupFormNewCard.setEventListeners();
 
-
-
 buttonEdit.addEventListener('click', () => {
-  popupProfile();
-}); // этот слушатель открывает Попап
-
-
-
-buttonAddFoto.addEventListener('click', ()=> {
-  popupNewCard();
+  const data = userInfo.getUserInfo;
+  const formProfile = popupProfile.getFormElement();
+  formProfile.elements.nameInput.value = data.name;
+  formProfile.elements.jobInput.value = data.about;
+  popupProfile.open();
 });
 
-
-formNewCard.addEventListener('submit', (evt)=>{
-  evt.preventDefault();
-  const name = titleInput.value;
-  const link = imageInput.value;
-  const newCard = createCard({ name, link });
-  cardsContainer.prepend(newCard);
-  closePopup(popupNewCard);
-  evt.target.reset();
-  formNewCardFormValidation.resetValidation();
-})
-
-
-
+buttonAddFoto.addEventListener('click', ()=> {
+  popupFormNewCard.open();
+});
