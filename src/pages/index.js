@@ -47,17 +47,18 @@ cards.renderItems();
 
 
 // класса редактирования профиля
-const popupProfile = new PopupWithForm(profileForm, (evt)=> {
+const popupProfile = new PopupWithForm(popupEditProfile, (evt)=> {
   evt.preventDefault();
   const formValues = popupProfile.getFormValues();
-  userInfo.setUserInfo({nameInput, jobInput });
+  userInfo.setUserInfo({nameInput: formValues.nameInput, jobInput: formValues.jobInput });
   popupProfile.close();
 });
 
 popupProfile.setEventListeners();
 
 
-const popupFormNewCard = new PopupWithForm(formNewCard, (value)=> {
+const popupFormNewCard = new PopupWithForm(popupNewCard, (value)=> {
+  evt.preventDefault();
   cards.addNewItem(createCard(value));
   popupFormNewCard.close();
 });
