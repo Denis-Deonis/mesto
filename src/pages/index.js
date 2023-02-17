@@ -1,8 +1,8 @@
 import './index.css';
 
-import {template, cardsContainer,  nameInput, jobInput,
+import {template, cardsContainer,  titleProfile, subtitleProfile,
   buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
-  popupImage, } from '../utils/constants.js';
+  popupImage,  nameInputEdit, jobInputEdit,} from '../utils/constants.js';
 
 import {initialCards, validationConfig} from '../utils/dataSet'
 
@@ -19,7 +19,7 @@ const profileFormValidation = new FormValidator(validationConfig, popupEditProfi
 profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
-const userInfo = new UserInfo({nameInput: nameInput, jobInput: jobInput,});
+const userInfo = new UserInfo(titleProfile, subtitleProfile);
 
 function createCard(value, template) {
   const card = new Card(value, template, () => {
@@ -31,41 +31,38 @@ function createCard(value, template) {
 }
 
 const cards = new Section({
-  items: initialCards,
   renderer: (value)=> {
     cards.addItem(createCard(value, template));
 }
 }, cardsContainer);
 
-cards.renderItems();
+cards.renderItems(initialCards);
 
 function formValuesProfile(value) {
   userInfo.setUserInfo(value.nameInput, value.jobInput);
   popupProfile.close();
 }
 
-const popupProfile = new PopupWithForm(".popup_type_edit-profile", formValuesProfile);
+const popupProfile = new PopupWithForm(popupEditProfile, formValuesProfile);
 
 popupProfile.setEventListeners();
 
-const popupFormNewCard = new PopupWithForm('.popup_type_add-card', (evt)=> {
-  
-  const formValues = popupFormNewCard.getFormValues();
-  const card = createCard({formValues}, template);
-  cards.addNewItem(card);
-  popupFormNewCard.close();
+function openEditPopup() {
+  const user = userInfo.getUserInfo();
+  nameInputEdit.value = user.title;
+  jobInputEdit.value = user.subtitle;
+  popupProfile.open();
+}
+
+buttonEdit.addEventListener('click', () => openEditPopup());
+
+
+const popupFormNewCard = new PopupWithForm(popupNewCard,
+  (item)=> {
+    cards.addNewItem(createCard(item, template));
+    popupFormNewCard.close();
 });
 
+buttonAddFoto.addEventListener('click', ()=> { popupFormNewCard.open(); });
 popupFormNewCard.setEventListeners();
 
-buttonEdit.addEventListener('click', () => {
-  const data = userInfo.getUserInfo;
-  const formProfile = popupProfile.getFormElement();
-  formProfile.elements.nameInput.value = data.name;
-  formProfile.elements.jobInput.value = data.about;
-  popupProfile.open();
-});
-
-buttonAddFoto.addEventListener('click', ()=> {
-  popupFormNewCard.open();
-});
