@@ -16,6 +16,10 @@ const buttonAddFoto = document.querySelector('.profile__add-button');
 const nameInputEdit = document.querySelector('.popup__input_name');
 const jobInputEdit = document.querySelector('.popup__input_job');
 
+const titleInput = document.querySelector('.popup__input_type_title');
+const linkInput = document.querySelector('.popup__input_type_image-link');
+
+
 export {template, cardsContainer,  titleProfile, subtitleProfile,
   buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
-  popupImage,  nameInputEdit, jobInputEdit,}
+  popupImage,  nameInputEdit, jobInputEdit, titleInput, linkInput,}

@@ -2,7 +2,7 @@ import './index.css';
 
 import {template, cardsContainer,  titleProfile, subtitleProfile,
   buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
-  popupImage,  nameInputEdit, jobInputEdit,} from '../utils/constants.js';
+  popupImage,  nameInputEdit, jobInputEdit, titleInput, linkInput,} from '../utils/constants.js';
 
 import {initialCards, validationConfig} from '../utils/dataSet'
 
@@ -52,18 +52,23 @@ function openEditPopup() {
   const user = userInfo.getUserInfo();
   nameInputEdit.value = user.title;
   jobInputEdit.value = user.subtitle;
+  profileFormValidation.disableSubmitButton();
   popupProfile.open();
 }
 
 buttonEdit.addEventListener('click', () => openEditPopup());
 
 
-const popupFormNewCard = new PopupWithForm(popupNewCard,
+const popupFormNewCard = new PopupWithForm(
+  popupNewCard,
   (item)=> {
-    cards.addNewItem(createCard(item, template));
+    const card = createCard(item, template)
+    cards.addNewItem(card);
+    formNewCardFormValidation.disableSubmitButton();
     popupFormNewCard.close();
 });
 
 buttonAddFoto.addEventListener('click', ()=> { popupFormNewCard.open(); });
 popupFormNewCard.setEventListeners();
+
 
