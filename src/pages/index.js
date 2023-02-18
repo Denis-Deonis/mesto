@@ -21,10 +21,11 @@ formNewCardFormValidation.enableValidation();
 
 const userInfo = new UserInfo(titleProfile, subtitleProfile);
 
+const popupPhotos = new PopupWithImage(popupImage);
+popupPhotos.setEventListeners();
+
 function createCard(value, template) {
   const card = new Card(value, template, () => {
-    const popupPhotos = new PopupWithImage(popupImage);
-    popupPhotos.setEventListeners();
     popupPhotos.open({value})
   });
   return card.generateCard();
