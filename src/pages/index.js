@@ -52,8 +52,8 @@ function openEditPopup() {
   const user = userInfo.getUserInfo();
   nameInputEdit.value = user.title;
   jobInputEdit.value = user.subtitle;
-  profileFormValidation.disableSubmitButton();
   profileFormValidation.resetValidation();
+  profileFormValidation.disableSubmitButton();
   popupProfile.open();
 }
 
@@ -65,6 +65,7 @@ const popupFormNewCard = new PopupWithForm(
   (item)=> {
     const value = {name: item.titleInput, link: item.imageInput};
     cards.addNewItem(createCard(value, template));
+
     formNewCardFormValidation.disableSubmitButton();
 
     popupFormNewCard.close();

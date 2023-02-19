@@ -12,10 +12,7 @@ export class Section {
     this._container.prepend(element);
   }
 
-  // _clear(){
-  //   this._container.innerHTML = '';
-  // }
-
+ 
   renderItems(items) {
 
     items.forEach((item) => {
