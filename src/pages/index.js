@@ -62,8 +62,8 @@ buttonEdit.addEventListener('click', () => openEditPopup());
 const popupFormNewCard = new PopupWithForm(
   popupNewCard,
   (item)=> {
-    const card = createCard(item, template)
-    cards.addNewItem(card);
+    const value = {name: item.titleInput, link: item.imageInput};
+    cards.addNewItem(createCard(value, template));
     formNewCardFormValidation.disableSubmitButton();
     popupFormNewCard.close();
 });
