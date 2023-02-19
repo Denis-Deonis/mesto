@@ -53,6 +53,7 @@ function openEditPopup() {
   nameInputEdit.value = user.title;
   jobInputEdit.value = user.subtitle;
   profileFormValidation.disableSubmitButton();
+  profileFormValidation.resetValidation();
   popupProfile.open();
 }
 
@@ -65,6 +66,7 @@ const popupFormNewCard = new PopupWithForm(
     const value = {name: item.titleInput, link: item.imageInput};
     cards.addNewItem(createCard(value, template));
     formNewCardFormValidation.disableSubmitButton();
+
     popupFormNewCard.close();
 });
 
