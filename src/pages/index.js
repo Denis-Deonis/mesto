@@ -65,13 +65,13 @@ const popupFormNewCard = new PopupWithForm(
   (item)=> {
     const value = {name: item.titleInput, link: item.imageInput};
     cards.addNewItem(createCard(value, template));
-
     formNewCardFormValidation.disableSubmitButton();
 
     popupFormNewCard.close();
 });
 
-buttonAddFoto.addEventListener('click', ()=> { popupFormNewCard.open(); });
+buttonAddFoto.addEventListener('click', ()=> { formNewCardFormValidation.resetValidation();
+  popupFormNewCard.open(); });
 popupFormNewCard.setEventListeners();
 
 
