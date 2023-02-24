@@ -1,8 +1,10 @@
 import './index.css';
 
-import {template, cardsContainer,  titleProfile, subtitleProfile,
+import  {template, cardsContainer,  titleProfile, subtitleProfile,
   buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
-  popupImage,  nameInputEdit, jobInputEdit, titleInput, linkInput,} from '../utils/constants.js';
+  popupImage,  nameInputEdit, jobInputEdit, popupAvatarProfile, buttonUpdateAvatar,
+  popupUpdateAvatar,
+} from '../utils/constants.js';
 
 import {initialCards, validationConfig} from '../utils/dataSet'
 
@@ -15,7 +17,10 @@ import {UserInfo} from '../components/UserInfo';
 
 const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
 const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
+const validatorFormUpdateAvatar = new FormValidator(validationConfig, popupUpdateAvatar);
 
+
+validatorFormUpdateAvatar.enableValidation();
 profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
@@ -73,5 +78,29 @@ const popupFormNewCard = new PopupWithForm(
 buttonAddFoto.addEventListener('click', ()=> { formNewCardFormValidation.resetValidation();
   popupFormNewCard.open(); });
 popupFormNewCard.setEventListeners();
+
+
+// Форма обновления аватара
+async function handleSubmitFormUpdateAvatar(data) {
+  try {
+    const userProfile = await api.updateProfileAvatar(data);
+    userInfo.setUserInfo(userProfile);
+  } catch (error) {
+    return console.log(`Ошибка: ${error}`);
+  }
+}
+const popupAvatar = new PopupWithForm(
+  popupAvatarProfile,
+  handleSubmitFormUpdateAvatar
+)
+
+buttonUpdateAvatar.addEventListener(
+  "click",
+  () => {
+    popupAvatar.open()
+    validatorFormUpdateAvatar.disableSubmitButton()
+  },
+  false
+)
 
 

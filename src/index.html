@@ -20,7 +20,12 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/profile/Avatar.jpg')%>" alt="Аватар пользователя">
+        <div class="profile__wrapper-relative">
+          <img class="profile__avatar" src="<%=require('./images/profile/Avatar.jpg')%>" alt="Аватар пользователя">
+          <button class="profile__edit-avatar" type="button">
+            <img class="profile__edit-pen" src="<%=require('./images/profile/pen.svg)%>" alt="изображение письменной ручки">
+          </button>
+        </div>
         <div class="profile__info">
           <div class="profile__heading">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -109,6 +114,36 @@
       </div>
     </div>
 
+    <div class="popup popup_type_update-avatar">
+      <div class="popup__avatar-container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form" name="editAvatarForm" id="editAvatarForm" novalidate>
+          <label class="popup__label">
+            <input id="nameInputAvatar"
+              class="popup__input popup__input_link-avatar"
+              name="avatar"
+              type="url"
+              placeholder="Введите ссылку URL"
+              required
+            >
+            <span class="nameInputAvatar-error error"></span>
+          </label>
+          <button class="popup__save" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_confirmation">
+      <div class="popup__confirmation-container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title popup__title_margin">Вы уверены?</h2>
+        <form class="popup__form">
+          <button class="popup__save popup__save_margin" type="submit">Да</button>
+        </form>
+      </div>
+    </div>
+
     <!-- Попап добавления/удаления фото -->
     <div class="popup popup_type_image">
         <figure class="popup__image-container">
@@ -118,6 +153,8 @@
         </figure>
     </div>
 
+
+
     <!-- Темплеит для добавления/удаления фото в списке элементов -->
     <template class="element-template" id="element-template">
       <li class="element">
@@ -125,13 +162,16 @@
         <img class="element__image" src="#" alt="Изображения городов России">
         <div class="element__group">
           <h2 class="element__title"></h2>
-          <button class="element__like-button" type="button" aria-label="Лайк"></button>
+          <div class="element__container-like">
+            <button class="element__like-button" type="button" aria-label="Лайк"></button>
+            <p class="element__count-like"></p>
+          </div>
         </div>
       </li>
     </template>
 
+    
   </div>
-
 </body>
 
 </html>
