@@ -4,12 +4,12 @@ const popupImage = '.popup_type_image';
 
 const titleProfile = ".profile__title";
 const subtitleProfile  = ".profile__subtitle";
-
 const popupAvatarProfile = ".profile__avatar";
 
 const popupEditProfile = '.popup_type_edit-profile';
 const popupNewCard = '.popup_type_add-card';
 const popupUpdateAvatar = '.popup_type_update-avatar';
+const popupConfirmationDelete = ".popup_type_confirmation";
 
 
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -28,5 +28,5 @@ const jobInputEdit = document.querySelector('.popup__input_job');
 export {template, cardsContainer,  titleProfile, subtitleProfile,
   buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
   popupImage,  nameInputEdit, jobInputEdit,  popupAvatarProfile, buttonUpdateAvatar,
-  popupUpdateAvatar,
+  popupUpdateAvatar, popupConfirmationDelete,
 }
