@@ -31,6 +31,23 @@ const userInfo = new UserInfo(titleProfile, subtitleProfile, popupAvatarProfile)
 const popupPhotos = new PopupWithImage(popupImage);
 popupPhotos.setEventListeners();
 
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
+  headers: {
+    authorization: "014483e6-50f6-4a65-91e7-a3fda779d527",
+    "Content-Type": "application/json",
+  },
+});
+
+Promise.all([api.getRealUserInfo(), api.getInitialCards()])
+  .then(([userProfile, cards]) => {
+    user.setUserInfo(userProfile)
+
+    userId = userProfile._id
+    cardList.renderItems(cards)
+  })
+  .catch((error) => console.log(`Ошибка: ${error}`))
+
 const popupConfirmation = new PopupConfirmation(
   popupConfirmationDelete,
   async (card) => {
@@ -190,22 +207,5 @@ buttonAddFoto.addEventListener('click', ()=> {
 });
 
 
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
-  headers: {
-    authorization: "014483e6-50f6-4a65-91e7-a3fda779d527",
-    "Content-Type": "application/json",
-  },
-});
 
-
-
-Promise.all([api.getRealUserInfo(), api.getInitialCards()])
-  .then(([userProfile, cards]) => {
-    user.setUserInfo(userProfile)
-
-    userId = userProfile._id
-    cardList.renderItems(cards)
-  })
-  .catch((error) => console.log(`Ошибка: ${error}`))
 
