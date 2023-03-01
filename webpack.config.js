@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    index: path.resolve(__dirname, 'src', 'pages', 'index.js'),
+    main: path.resolve(__dirname, 'src', 'pages', 'index.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -13,17 +13,10 @@ module.exports = {
     publicPath: '',
     clean: true,
   },
-  mode: 'development',
-  devServer: {
-    static: path.resolve(__dirname, './dist'),
-    hot: true,
-    open: true,
-    compress: true,
-    watchFiles: ['./src/*.html'],
-    port: 8080
-  },
+
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.js$/,
         use: 'babel-loader',
         exclude: '/node_modules/'
@@ -33,15 +26,15 @@ module.exports = {
         type: 'asset/resource',
         generator: {
             filename: 'images/[name].[hash][ext]',
+          }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name].[hash][ext]',
         }
-    },
-    {
-      test: /\.(woff|woff2|eot|ttf|otf)$/i,
-      type: 'asset/resource',
-      generator: {
-        filename: 'fonts/[name].[hash][ext]',
-      }
-    },
+      },
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, {
@@ -62,5 +55,15 @@ module.exports = {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
 
-  ]
+  ],
+
+  mode: 'development',
+  devServer: {
+    static: path.resolve(__dirname, './dist'),
+    hot: true,
+    open: true,
+    compress: true,
+    // watchFiles: ['*/**/*.html'],
+    port: 8080
+  },
 }
