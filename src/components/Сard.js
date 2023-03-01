@@ -16,11 +16,11 @@ export class Card {
   }
 
   like() {
-    this._likeButton.classList.add("element__like-button_active")
+    this._likeButton.classList.add("element__like-button_active");
   }
 
   dislike() {
-    this._likeButton.classList.remove("element__like-button_active")
+    this._likeButton.classList.remove("element__like-button_active");
   }
 
   _userLiked() {
@@ -63,9 +63,11 @@ export class Card {
     this._cardsElementImage = this._cardElement.querySelector('.element__image');
     this._cardsElementTitle = this._cardElement.querySelector('.element__title');
     this._likeButton = this._cardElement.querySelector('.element__like-button');
-    this._countLikeElement = this._cardElement.querySelector('.');
+    this._countLikeElement = this._cardElement.querySelector('.element__count-like');
+    this._countLikeElement.textContent = this._likes.length
 
     this._setEventListeners();
+    this._userLiked();
 
     this._cardsElementImage.src = this._link;
     this._cardsElementImage.alt = this._title;

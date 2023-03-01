@@ -54,7 +54,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
-
+  
   ],
 
   mode: 'development',

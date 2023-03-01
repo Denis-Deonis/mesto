@@ -6,7 +6,7 @@ import  {template, cardsContainer,  titleProfile, subtitleProfile,
   popupUpdateAvatar, popupConfirmationDelete,
 } from '../utils/constants.js';
 
-import {initialCards, validationConfig} from '../utils/dataSet'
+import {validationConfig} from '../utils/validationConfig'
 
 import {Card} from '../components/Сard';
 import {FormValidator} from '../components/FormValidator';
@@ -17,52 +17,10 @@ import {Section} from '../components/Section';
 import {UserInfo} from '../components/UserInfo';
 import {Api} from '../utils/Api'
 
-const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
-const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
-const validatorFormUpdateAvatar = new FormValidator(validationConfig, popupUpdateAvatar);
-
-
-validatorFormUpdateAvatar.enableValidation();
-profileFormValidation.enableValidation();
-formNewCardFormValidation.enableValidation();
-
-const userInfo = new UserInfo(titleProfile, subtitleProfile, popupAvatarProfile);
-
-const popupPhotos = new PopupWithImage(popupImage);
-popupPhotos.setEventListeners();
-
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
-  headers: {
-    authorization: "014483e6-50f6-4a65-91e7-a3fda779d527",
-    "Content-Type": "application/json",
-  },
-});
-
-Promise.all([api.getRealUserInfo(), api.getInitialCards()])
-  .then(([userProfile, cards]) => {
-    user.setUserInfo(userProfile)
-
-    userId = userProfile._id
-    cardList.renderItems(cards)
-  })
-  .catch((error) => console.log(`Ошибка: ${error}`))
-
-const popupConfirmation = new PopupConfirmation(
-  popupConfirmationDelete,
-  async (card) => {
-    api
-      .removeCard(card._id)
-      .then(() => {
-        card.remove()
-        popupConfirmation.close()
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`))
-  }
-);
+let userId;
 
 function createCard(value, template) {
-  const card = new Card(value, template, () => {popupPhotos.open({value})},
+  const card = new Card(value, template, () => {popupPhotos.open({value})}, userId,
     async () => {
       try {
         const response = await api.addLike(value._id)
@@ -86,58 +44,59 @@ function createCard(value, template) {
   return card.generateCard();
 };
 
+const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
+const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
+const validatorFormUpdateAvatar = new FormValidator(validationConfig, popupUpdateAvatar);
 
 
+validatorFormUpdateAvatar.enableValidation();
+profileFormValidation.enableValidation();
+formNewCardFormValidation.enableValidation();
 
-const cards = new Section({
-  renderer: (value)=> {
-    cards.addItem(createCard(value, template));
-}
-}, cardsContainer);
+const userInfo = new UserInfo(titleProfile, subtitleProfile, popupAvatarProfile);
 
-cards.renderItems(initialCards);
+const popupPhotos = new PopupWithImage(popupImage);
+popupPhotos.setEventListeners();
 
-////////////////////////
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
+  headers: {
+    authorization: "014483e6-50f6-4a65-91e7-a3fda779d527",
+    "Content-Type": "application/json",
+  },
+});
 
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userProfile, cards]) => {
+    user.setUserInfo(userProfile)
 
-// function formValuesProfile(value) {
-//   userInfo.setUserInfo(value.nameInput, value.jobInput);
-//   popupProfile.close();
-// }
+    userId = userProfile._id
+    cardList.renderItems(cards)
+  })
+  .catch((error) => console.log(`Ошибка: ${error}`))
 
-// const popupProfile = new PopupWithForm(popupEditProfile, formValuesProfile);
-
-// popupProfile.setEventListeners();
-
-// function openEditPopup() {
-//   const user = userInfo.getUserInfo();
-//   nameInputEdit.value = user.title;
-//   jobInputEdit.value = user.subtitle;
-//   profileFormValidation.resetValidation();
-//   profileFormValidation.disableSubmitButton();
-//   popupProfile.open();
-// }
-
-// buttonEdit.addEventListener('click', () => openEditPopup());
-
-
-// const popupFormNewCard = new PopupWithForm(
-//   popupNewCard,
-//   (item)=> {
-//     const value = {name: item.titleInput, link: item.imageInput};
-//     cards.addNewItem(createCard(value, template));
-//     formNewCardFormValidation.disableSubmitButton();
-
-//     popupFormNewCard.close();
-// });
-
-// buttonAddFoto.addEventListener('click', ()=> { formNewCardFormValidation.resetValidation();
-//   popupFormNewCard.open(); });
-// popupFormNewCard.setEventListeners();
+const popupConfirmation = new PopupConfirmation(
+  popupConfirmationDelete,
+  async (card) => {
+    api
+      .removeCard(card._id)
+      .then(() => {
+        card.remove()
+        popupConfirmation.close()
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
+  }
+);
 
 
+const cardList = new Section(
+  {
+    renderer: (value)=> {
+      cardList.addItem(createCard(value, template));
+    }
+  }, cardsContainer);
 
-///////////////////
+
 
 
 // Форма обновления аватара
