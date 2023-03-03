@@ -2,7 +2,7 @@ import './index.css';
 
 import  {template, cardsContainer,  titleProfile, subtitleProfile,
   buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
-  popupImage,  nameInputEdit, jobInputEdit, popupAvatarProfile, buttonUpdateAvatar,
+  popupImage,  avatarProfile, buttonUpdateAvatar,
   popupUpdateAvatar, popupConfirmationDelete,
 } from '../utils/constants.js';
 
@@ -53,27 +53,12 @@ validatorFormUpdateAvatar.enableValidation();
 profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
-const userInfo = new UserInfo(titleProfile, subtitleProfile, popupAvatarProfile);
+const userInfo = new UserInfo(titleProfile, subtitleProfile, avatarProfile);
 
 const popupPhotos = new PopupWithImage(popupImage);
 popupPhotos.setEventListeners();
 
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
-  headers: {
-    authorization: "014483e6-50f6-4a65-91e7-a3fda779d527",
-    "Content-Type": "application/json",
-  },
-});
 
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userProfile, cards]) => {
-    user.setUserInfo(userProfile)
-
-    userId = userProfile._id
-    cardList.renderItems(cards)
-  })
-  .catch((error) => console.log(`Ошибка: ${error}`))
 
 const popupConfirmation = new PopupConfirmation(
   popupConfirmationDelete,
@@ -109,9 +94,11 @@ async function handleSubmitFormUpdateAvatar(data) {
   }
 };
 const popupAvatar = new PopupWithForm(
-  popupAvatarProfile,
+  popupUpdateAvatar,
   handleSubmitFormUpdateAvatar
 );
+
+popupAvatar.setEventListeners();
 
 // Форма редактирования профиля
 async function handleSubmitFormEditProfile(data) {
@@ -128,6 +115,8 @@ const popupEdit = new PopupWithForm(
   handleSubmitFormEditProfile
 );
 
+popupEdit.setEventListeners();
+
 // Форма добавления карточек
 async function handleSubmitFormAddCard(data) {
   try {
@@ -143,18 +132,20 @@ const popupAdd = new PopupWithForm(
   handleSubmitFormAddCard
 );
 
+popupAdd.setEventListeners();
+
 buttonEdit.addEventListener('click', () => {
     popupEdit.open();
     popupEdit.setInputValue(user.getUserInfo());
+    profileFormValidation.resetValidation();
     profileFormValidation.disableSubmitButton();
   },
   false
 );
 
-buttonUpdateAvatar.addEventListener(
-  "click",
-  () => {
+buttonUpdateAvatar.addEventListener('click', () => {
     popupAvatar.open();
+    validatorFormUpdateAvatar.resetValidation();
     validatorFormUpdateAvatar.disableSubmitButton();
   },
   false
@@ -162,9 +153,47 @@ buttonUpdateAvatar.addEventListener(
 
 buttonAddFoto.addEventListener('click', ()=> {
   formNewCardFormValidation.resetValidation();
+  formNewCardFormValidation.disableSubmitButton();
   popupAdd.open();
 });
 
 
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
+  headers: {
+    authorization: "014483e6-50f6-4a65-91e7-a3fda779d527",
+    // "Content-Type": "application/json",
+  },
+});
 
+const user = new UserInfo( titleProfile, subtitleProfile, avatarProfile) ;
 
+// Promise.all([api.getUserInfo(), api.getInitialCards()])
+//   .then(([userProfile, cards]) => {
+//     user.setUserInfo(userProfile)
+
+//     userId = userProfile._id
+//     cardList.renderItems(cards)
+//   })
+//   .catch((error) => console.log(`Ошибка: ${error}`))
+
+// Отрисовка карточек с сервера + отрисовка данных пользователя
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userProfile, cards]) => {
+    user.setUserInfo(userProfile)
+    // Использовал контрольную проверку для попадания правильных данных
+    const error_title = "При получении данных с сервера"
+    const editName = popupEditProfile.querySelector(".popup__input_type_name")
+    const editJob = popupEditProfile.querySelector(".popup__input_type_job")
+    if (editName) {
+      editName.value = userProfile
+.name
+    } else console.log(error_title + " не найден Edit popup__input_type_name")
+    if (editJob) {
+      editJob.value = userProfile
+.about
+    } else console.log(error_title + " не найден Edit popup__input_type_job")
+    userId = userProfile._id
+    cardList.renderItems(cards)
+  })
+  .catch((error) => console.log(`Ошибка: ${error}`))

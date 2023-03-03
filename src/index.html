@@ -9,6 +9,7 @@
     Выполнен Зыковым Денисом на Яндекс.Практикуме">
   <meta name="keywords" content="html, css">
   <meta name="author" content="DenisZыkov">
+  <link rel="shortcut icon" href="<%=require('./images/icon.png')%>">
   <title>Mesto</title>
 </head>
 
@@ -115,20 +116,22 @@
 
     <div class="popup popup_type_update-avatar">
       <div class="popup__avatar-container">
-        <button class="popup__close" type="button"></button>
-        <h2 class="popup__title">Обновить аватар</h2>
+        <button class="popup__close-button" type="button"></button>
         <form class="popup__form" name="editAvatarForm" id="editAvatarForm" novalidate>
-          <label class="popup__label">
-            <input id="nameInputAvatar"
-              class="popup__input popup__input_link-avatar"
-              name="avatar"
-              type="url"
-              placeholder="Введите ссылку URL"
-              required
-            >
-            <span class="nameInputAvatar-error error"></span>
-          </label>
-          <button class="popup__save" type="submit">Сохранить</button>
+          <fieldset class="popup__content">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <label class="popup__label">
+              <input id="nameInputAvatar"
+                class="popup__input popup__input_link-avatar"
+                name="nameInputAvatar"
+                type="url"
+                placeholder="Введите ссылку URL"
+                required
+              >
+              <span class="nameInputAvatar-error error"></span>
+            </label>
+            <button class="popup__save" type="submit">Сохранить</button>
+        </fieldset>
         </form>
       </div>
     </div>

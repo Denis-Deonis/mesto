@@ -4,7 +4,7 @@ const popupImage = '.popup_type_image';
 
 const titleProfile = ".profile__title";
 const subtitleProfile  = ".profile__subtitle";
-const popupAvatarProfile = ".profile__avatar";
+const avatarProfile = ".profile__avatar";
 
 const popupEditProfile = '.popup_type_edit-profile';
 const popupNewCard = '.popup_type_add-card';
@@ -18,8 +18,8 @@ const buttonUpdateAvatar = document.querySelector(".profile__edit-avatar");
 
 
 
-const nameInputEdit = document.querySelector('.popup__input_name');
-const jobInputEdit = document.querySelector('.popup__input_job');
+// const nameInputEdit = document.querySelector('.popup__input_name');
+// const jobInputEdit = document.querySelector('.popup__input_job');
 
 // const titleInput = document.querySelector('.popup__input_type_title');
 // const linkInput = document.querySelector('.popup__input_type_image-link');
@@ -27,6 +27,6 @@ const jobInputEdit = document.querySelector('.popup__input_job');
 
 export {template, cardsContainer,  titleProfile, subtitleProfile,
   buttonEdit, buttonAddFoto,  popupEditProfile, popupNewCard,
-  popupImage,  nameInputEdit, jobInputEdit,  popupAvatarProfile, buttonUpdateAvatar,
+  popupImage,  avatarProfile, buttonUpdateAvatar,
   popupUpdateAvatar, popupConfirmationDelete,
 }
