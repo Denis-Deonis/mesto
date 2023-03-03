@@ -73,6 +73,8 @@ const popupConfirmation = new PopupConfirmation(
   }
 );
 
+popupConfirmation.setEventListeners();
+
 
 const cardList = new Section(
   {
@@ -103,7 +105,7 @@ popupAvatar.setEventListeners();
 // Форма редактирования профиля
 async function handleSubmitFormEditProfile(data) {
   try {
-    const userProfile = await api.editProfileUserInfo(data)
+    const userProfile = await api.editProfile(data) 
     user.setUserInfo(userProfile)
   } catch (error) {
     return console.log(`Ошибка: ${error}`)
@@ -111,7 +113,7 @@ async function handleSubmitFormEditProfile(data) {
 };
 
 const popupEdit = new PopupWithForm(
-  popupEditProfile ,
+  popupEditProfile,
   handleSubmitFormEditProfile
 );
 
@@ -168,32 +170,35 @@ const api = new Api({
 
 const user = new UserInfo( titleProfile, subtitleProfile, avatarProfile) ;
 
-// Promise.all([api.getUserInfo(), api.getInitialCards()])
-//   .then(([userProfile, cards]) => {
-//     user.setUserInfo(userProfile)
-
-//     userId = userProfile._id
-//     cardList.renderItems(cards)
-//   })
-//   .catch((error) => console.log(`Ошибка: ${error}`))
-
-// Отрисовка карточек с сервера + отрисовка данных пользователя
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userProfile, cards]) => {
     user.setUserInfo(userProfile)
-    // Использовал контрольную проверку для попадания правильных данных
-    const error_title = "При получении данных с сервера"
-    const editName = popupEditProfile.querySelector(".popup__input_type_name")
-    const editJob = popupEditProfile.querySelector(".popup__input_type_job")
-    if (editName) {
-      editName.value = userProfile
-.name
-    } else console.log(error_title + " не найден Edit popup__input_type_name")
-    if (editJob) {
-      editJob.value = userProfile
-.about
-    } else console.log(error_title + " не найден Edit popup__input_type_job")
+
     userId = userProfile._id
     cardList.renderItems(cards)
   })
   .catch((error) => console.log(`Ошибка: ${error}`))
+
+
+
+// // Отрисовка карточек с сервера + отрисовка данных пользователя
+// Promise.all([api.getUserInfo(), api.getInitialCards()])
+//   .then(([userProfile, cards]) => {
+//     user.setUserInfo(userProfile)
+//     // Использовал контрольную проверку для попадания правильных данных
+//     const error_title = "При получении данных с сервера"
+//     const editName = document.querySelector(popupEditProfile).querySelector(".popup__input_type_name")
+//     const editJob = document.querySelector(popupEditProfile).querySelector(".popup__input_type_job")
+//     if (editName) {
+//       editName.value = userProfile
+
+// .name
+//     } else console.log(error_title + " не найден Edit popup__input_type_name")
+//     if (editJob) {
+//       editJob.value = userProfile
+// .about
+//     } else console.log(error_title + " не найден Edit popup__input_type_job")
+//     userId = userProfile._id
+//     cardList.renderItems(cards)
+//   })
+//   .catch((error) => console.log(`Ошибка: ${error}`))

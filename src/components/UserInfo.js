@@ -12,6 +12,23 @@ export class UserInfo {
     }
   }
 
+
+  // getUserInfo() {
+  //     return {
+  //       name:  this._name.textContent,
+  //       about: this._about.textContent,
+  //       avatar: this._avatar.textContent,
+  //     }
+  // }
+
+  // getUserInfo({name, about, avatar}) {
+  //   this._name.textContent = name;
+  //   this._about.textContent = about;
+  //   this._avatar.src = avatar;
+  // }
+
+
+
   getUserInfo() {
     return {
       name: this._data.name,
@@ -20,16 +37,7 @@ export class UserInfo {
     }
   }
 
-  // setUserInfo(name, about, avatar) {
-  //   this._name.textContent = name
-  //   this._about.textContent = about
-  //   this._avatar.textContent = avatar
 
-  //   if (this._avatar.textContent) {
-  //     this._avatar.src = this._avatar.textContent
-  //     this._avatar.alt = this._name.textContent
-  //   }
-  // }
 
   setUserInfo(data) {
     this._data.name = data.name
