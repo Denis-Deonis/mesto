@@ -6,17 +6,18 @@ export class PopupWithForm extends Popup {
     this.submitForm = submitForm;
     this._form = this._popup.querySelector('.popup__form');
     this._inputs = this._form.querySelectorAll('.popup__input');
-    this._form.addEventListener("submit", (event) => {
-      event.preventDefault()
-      const replacementText = event.submitter.textContent
-      event.submitter.textContent = "Сохранение..."
-      this.submitForm(this._getInputValues())
-        .then(() => this.close())
-        .finally(() => {
-          event.submitter.textContent = replacementText
-        })
-    })
+    this._submitBtn = this._form.querySelector('.popup__save');
+    this._submitBtnText = this._submitBtn.textContent;
   }
+
+  loading(isLoading) {
+    if (isLoading) {
+      this._submitBtn.textContent = 'Сохранение...'
+    } else {
+      this._submitBtn.textContent = this._submitBtnText;
+    }
+  }
+
 
   _getInputValues() {
     const values = {}

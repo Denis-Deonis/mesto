@@ -5,7 +5,7 @@ export class Api {
   }
 
   _handleSendingRequest(res) {
-  
+
     if(res.ok) {
       return Promise.resolve(res.json())
     }
@@ -30,8 +30,8 @@ export class Api {
         method: "PATCH",
         headers: this._headers,
         body: JSON.stringify({
-          name: data.nameInput,
-          about: data.jobInput,
+          name: data.name,
+          about: data.about,
         })
       }
     )
@@ -41,15 +41,18 @@ export class Api {
   async addNewCard(data) {
     const requestUrl = await fetch(`${this._baseUrl}/cards`,
       {
-        method: "POST",
+        method: 'POST',
         headers: this._headers,
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          name: data.name,
+          link: data.link
+        })
       }
     )
     return this._handleSendingRequest(requestUrl)
   } // Метод добавления новой карточки
 
-  async addCardLike(cardId) {
+  async addLike(cardId) {
     const requestUrl = await fetch(`${this._baseUrl}/cards/${cardId}/likes`,
       {
         method: "PUT",
@@ -59,15 +62,6 @@ export class Api {
     return this._handleSendingRequest(requestUrl)
   } // Метод постановки лайка карточки
 
-  async deleteCardLike(cardId) {
-    const requestUrl = await fetch(`${this._baseUrl}/cards/${cardId}`,
-      {
-        method: "DELETE",
-        headers: this._headers,
-      }
-    )
-    return this._handleSendingRequest(requestUrl)
-  } // Метод удаления лайка карточки
 
   async removeLike(cardId) {
     const requestUrl = await fetch(`${this._baseUrl}/cards/${cardId}/likes`,
@@ -77,7 +71,7 @@ export class Api {
       }
     )
     return this._handleSendingRequest(requestUrl)
-  }
+  }// Метод удаления лайка карточки
 
   async updateProfileAvatar(data) {
     const requestUrl = await fetch(`${this._baseUrl}/users/me/avatar`,
@@ -91,5 +85,7 @@ export class Api {
     )
     return this._handleSendingRequest(requestUrl)
   } // Метод обновления аватара пользователя
+
+
 
 }

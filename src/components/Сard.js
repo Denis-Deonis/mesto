@@ -64,7 +64,7 @@ export class Card {
     this._cardsElementTitle = this._cardElement.querySelector('.element__title');
     this._likeButton = this._cardElement.querySelector('.element__like-button');
     this._countLikeElement = this._cardElement.querySelector('.element__count-like');
-    this._countLikeElement.textContent = this._likes.length
+    this._countLikeElement.textContent = this._likes.length;
 
     this._setEventListeners();
     this._userLiked();

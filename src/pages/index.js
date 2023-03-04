@@ -15,7 +15,7 @@ import {PopupWithImage} from '../components/PopupWithImage';
 import {PopupConfirmation} from '../components/PopupConfirmation';
 import {Section} from '../components/Section';
 import {UserInfo} from '../components/UserInfo';
-import {Api} from '../utils/Api'
+import {Api} from '../components/Api'
 
 let userId;
 
@@ -53,7 +53,7 @@ validatorFormUpdateAvatar.enableValidation();
 profileFormValidation.enableValidation();
 formNewCardFormValidation.enableValidation();
 
-const userInfo = new UserInfo(titleProfile, subtitleProfile, avatarProfile);
+const userInfo = new UserInfo({name: titleProfile, about: subtitleProfile, avatar: avatarProfile});
 
 const popupPhotos = new PopupWithImage(popupImage);
 popupPhotos.setEventListeners();
@@ -86,59 +86,73 @@ const cardList = new Section(
 
 
 
-// Форма обновления аватара
-async function handleSubmitFormUpdateAvatar(data) {
-  try {
-    const userProfile = await api.updateProfileAvatar(data);
-    userInfo.setUserInfo(userProfile);
-  } catch (error) {
-    return console.log(`Ошибка: ${error}`);
-  }
-};
 const popupAvatar = new PopupWithForm(
   popupUpdateAvatar,
-  handleSubmitFormUpdateAvatar
+  (data) => {
+    popupAvatar.loading(true);
+    api.updateProfileAvatar(data)
+      .then((data) => {
+        avatar.src = data.avatar;
+        popupAvatar.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupAvatar.loading(false);
+      });
+  }
 );
 
 popupAvatar.setEventListeners();
 
 // Форма редактирования профиля
-async function handleSubmitFormEditProfile(data) {
-  try {
-    const userProfile = await api.editProfile(data) 
-    user.setUserInfo(userProfile)
-  } catch (error) {
-    return console.log(`Ошибка: ${error}`)
-  }
-};
 
 const popupEdit = new PopupWithForm(
   popupEditProfile,
-  handleSubmitFormEditProfile
+  (dataForm) => {
+    popupEdit.loading(true);
+    api.editProfile(dataForm)
+      .then((dataForm) => {
+        userInfo.setUserInfo(dataForm);
+        popupEdit.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupEdit.loading(false);
+      });
+  }
 );
 
 popupEdit.setEventListeners();
 
-// Форма добавления карточек
-async function handleSubmitFormAddCard(data) {
-  try {
-    const newCard = await api.addNewCard(data)
-    cardList.addItem(createCard(newCard))
-  } catch (error) {
-    return console.log(`Ошибка: ${error}`)
-  }
-};
 
 const popupAdd = new PopupWithForm(
   popupNewCard,
-  handleSubmitFormAddCard
+  // handleSubmitFormAddCard
+  (formData) => {
+    popupAdd.loading(true);
+    api.addNewCard(formData)
+      .then((formData) => {
+        cardList.addItem(createCard(formData));
+        popupAdd.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupAdd.loading(false);
+      });
+  }
 );
 
 popupAdd.setEventListeners();
 
 buttonEdit.addEventListener('click', () => {
     popupEdit.open();
-    popupEdit.setInputValue(user.getUserInfo());
+    popupEdit.setInputValue(userInfo.getUserInfo());
     profileFormValidation.resetValidation();
     profileFormValidation.disableSubmitButton();
   },
@@ -164,15 +178,13 @@ const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
   headers: {
     authorization: "014483e6-50f6-4a65-91e7-a3fda779d527",
-    // "Content-Type": "application/json",
+    "Content-Type": "application/json",
   },
 });
 
-const user = new UserInfo( titleProfile, subtitleProfile, avatarProfile) ;
-
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userProfile, cards]) => {
-    user.setUserInfo(userProfile)
+    userInfo.setUserInfo(userProfile)
 
     userId = userProfile._id
     cardList.renderItems(cards)
@@ -180,25 +192,3 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .catch((error) => console.log(`Ошибка: ${error}`))
 
 
-
-// // Отрисовка карточек с сервера + отрисовка данных пользователя
-// Promise.all([api.getUserInfo(), api.getInitialCards()])
-//   .then(([userProfile, cards]) => {
-//     user.setUserInfo(userProfile)
-//     // Использовал контрольную проверку для попадания правильных данных
-//     const error_title = "При получении данных с сервера"
-//     const editName = document.querySelector(popupEditProfile).querySelector(".popup__input_type_name")
-//     const editJob = document.querySelector(popupEditProfile).querySelector(".popup__input_type_job")
-//     if (editName) {
-//       editName.value = userProfile
-
-// .name
-//     } else console.log(error_title + " не найден Edit popup__input_type_name")
-//     if (editJob) {
-//       editJob.value = userProfile
-// .about
-//     } else console.log(error_title + " не найден Edit popup__input_type_job")
-//     userId = userProfile._id
-//     cardList.renderItems(cards)
-//   })
-//   .catch((error) => console.log(`Ошибка: ${error}`))
