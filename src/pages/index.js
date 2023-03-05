@@ -19,62 +19,74 @@ import {Api} from '../components/Api'
 
 let userId;
 
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
+  headers: {
+    authorization: "014483e6-50f6-4a65-91e7-a3fda779d527",
+    "Content-Type": "application/json",
+  },
+});
+
+
+  Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then(([initialCards, userData]) => {
+    userInfo.setUserInfo(userData);
+    userId = userData._id;
+    cardList.renderItems(initialCards);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  });
+
+  const userInfo = new UserInfo({name: titleProfile, about: subtitleProfile, avatar: avatarProfile});
+
+  const popupPhotos = new PopupWithImage(popupImage);
+  popupPhotos.setEventListeners();
+
+
 function createCard(value, template) {
   const card = new Card(value, template, () => {popupPhotos.open({value})}, userId,
-    async () => {
-      try {
-        const response = await api.addLike(value._id)
-        card.like()
-        card.likesCount(response)
-      } catch (error) {
-        return console.log(`Ошибка: ${error}`)
-      }
+    (cardId) => {
+      api.setLike(cardId)
+        .then((data) => {
+          card.handleLikeCard(data);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
     },
-    async () => {
-      try {
-        const response = await api.removeLike(value._id)
-        card.dislike()
-        card.likesCount(response)
-      } catch (error) {
-        return console.log(`Ошибка: ${error}`)
-      }
+    (cardId) => {
+      api.deleteLike(cardId)
+        .then((data) => {
+          card.handleLikeCard(data);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
     },
-    () => { popupConfirmation.open(card)},
+    (cardId) => {
+      popupConfirmation.open();
+
+      popupConfirmation.submitCallback( () => {
+        api.deleteCard(cardId)
+          .then(() => {
+            popupConfirmation.close();
+            card.removeCard();
+          })
+          .catch((err) => {
+            console.log(`Ошибка: ${err}`);
+          });
+      }  );
+    },
   );
   return card.generateCard();
 };
 
-const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
-const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
-const validatorFormUpdateAvatar = new FormValidator(validationConfig, popupUpdateAvatar);
-
-
-validatorFormUpdateAvatar.enableValidation();
-profileFormValidation.enableValidation();
-formNewCardFormValidation.enableValidation();
-
-const userInfo = new UserInfo({name: titleProfile, about: subtitleProfile, avatar: avatarProfile});
-
-const popupPhotos = new PopupWithImage(popupImage);
-popupPhotos.setEventListeners();
-
-
-
 const popupConfirmation = new PopupConfirmation(
-  popupConfirmationDelete,
-  async (card) => {
-    api
-      .removeCard(card._id)
-      .then(() => {
-        card.remove()
-        popupConfirmation.close()
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`))
-  }
-);
-
+  popupConfirmationDelete
+  );
 popupConfirmation.setEventListeners();
-
 
 const cardList = new Section(
   {
@@ -82,8 +94,6 @@ const cardList = new Section(
       cardList.addItem(createCard(value, template));
     }
   }, cardsContainer);
-
-
 
 
 const popupAvatar = new PopupWithForm(
@@ -136,7 +146,7 @@ const popupAdd = new PopupWithForm(
     popupAdd.loading(true);
     api.addNewCard(formData)
       .then((formData) => {
-        cardList.addItem(createCard(formData));
+        cardList.addNewItem(createCard(formData, template));
         popupAdd.close();
       })
       .catch((err) => {
@@ -161,10 +171,8 @@ buttonEdit.addEventListener('click', () => {
 
 buttonUpdateAvatar.addEventListener('click', () => {
     popupAvatar.open();
-    validatorFormUpdateAvatar.resetValidation();
     validatorFormUpdateAvatar.disableSubmitButton();
-  },
-  false
+  }
 );
 
 buttonAddFoto.addEventListener('click', ()=> {
@@ -174,21 +182,11 @@ buttonAddFoto.addEventListener('click', ()=> {
 });
 
 
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-60",
-  headers: {
-    authorization: "014483e6-50f6-4a65-91e7-a3fda779d527",
-    "Content-Type": "application/json",
-  },
-});
-
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userProfile, cards]) => {
-    userInfo.setUserInfo(userProfile)
-
-    userId = userProfile._id
-    cardList.renderItems(cards)
-  })
-  .catch((error) => console.log(`Ошибка: ${error}`))
+const formNewCardFormValidation = new FormValidator(validationConfig, popupNewCard);
+const profileFormValidation = new FormValidator(validationConfig, popupEditProfile);
+const validatorFormUpdateAvatar = new FormValidator(validationConfig, popupUpdateAvatar);
 
 
+validatorFormUpdateAvatar.enableValidation();
+profileFormValidation.enableValidation();
+formNewCardFormValidation.enableValidation();

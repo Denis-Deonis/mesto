@@ -4,88 +4,93 @@ export class Api {
     this._baseUrl = options.baseUrl;
   }
 
-  _handleSendingRequest(res) {
 
-    if(res.ok) {
-      return Promise.resolve(res.json())
+    _parseResponse(res) {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
     }
-    return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`)
-  }  // Формирую запрос на сервер
 
-  async getUserInfo() {
-    const requestUrl = await fetch(`${this._baseUrl}/users/me`,
-      {headers: this._headers,} )
-    return this._handleSendingRequest(requestUrl)
-  } // Метод загрузки информации о пользователе с сервера
+    // Получение информации о пользователе с сервера
+    getUserInfo() {
+      return fetch(`${this._baseUrl}/users/me`, {
+        headers: this._headers
+      })
+        .then(res => this._parseResponse(res));
+    }
 
-  async getInitialCards() {
-    const requestUrl = await fetch(`${this._baseUrl}/cards`,
-      {headers: this._headers,} )
-    return this._handleSendingRequest(requestUrl)
-  } // Метод загрузки карточек с сервера
+    // Получение карточек с сервера
+    getInitialCards() {
+      return fetch(`${this._baseUrl}/cards`, {
+        headers: this._headers
+      })
+        .then(res => this._parseResponse(res));
+    }
 
-  async editProfile(data) {
-    const requestUrl = await fetch(`${this._baseUrl}/users/me`,
-      {
-        method: "PATCH",
+    // Редактирование информации о пользователе через попап
+    editProfile(data) {
+      return fetch(`${this._baseUrl}/users/me`, {
+        method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
           name: data.name,
           about: data.about,
         })
-      }
-    )
-    return this._handleSendingRequest(requestUrl)
-  } // Метод редактирование профиля
+      })
+        .then(res => this._parseResponse(res));
+    }
 
-  async addNewCard(data) {
-    const requestUrl = await fetch(`${this._baseUrl}/cards`,
-      {
+    // Редактирование аватара пользователя через попап
+    updateProfileAvatar(data) {
+      return fetch(`${this._baseUrl}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: data.avatar
+        })
+      })
+        .then(res => this._parseResponse(res));
+    }
+
+    // Добавление новой карточки через попап
+    addNewCard(data) {
+      return fetch(`${this._baseUrl}/cards`, {
         method: 'POST',
         headers: this._headers,
         body: JSON.stringify({
           name: data.name,
           link: data.link
         })
-      }
-    )
-    return this._handleSendingRequest(requestUrl)
-  } // Метод добавления новой карточки
+      })
+        .then(res => this._parseResponse(res));
+    }
 
-  async addLike(cardId) {
-    const requestUrl = await fetch(`${this._baseUrl}/cards/${cardId}/likes`,
-      {
-        method: "PUT",
-        headers: this._headers,
-      }
-    )
-    return this._handleSendingRequest(requestUrl)
-  } // Метод постановки лайка карточки
+    // Удаление карточки
+    deleteCard(cardId) {
+      return fetch(`${this._baseUrl}/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+        .then(res => this._parseResponse(res));
+    }
 
+    // Ставим лайк карточке
+    setLike(cardId) {
+      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+        .then(res => this._parseResponse(res));
+    }
 
-  async removeLike(cardId) {
-    const requestUrl = await fetch(`${this._baseUrl}/cards/${cardId}/likes`,
-      {
-        method: "DELETE",
-        headers: this._headers,
-      }
-    )
-    return this._handleSendingRequest(requestUrl)
-  }// Метод удаления лайка карточки
-
-  async updateProfileAvatar(data) {
-    const requestUrl = await fetch(`${this._baseUrl}/users/me/avatar`,
-      {
-        method: "PATCH",
-        headers: this._headers,
-        body: JSON.stringify({
-          avatar: data.avatar,
-        })
-      }
-    )
-    return this._handleSendingRequest(requestUrl)
-  } // Метод обновления аватара пользователя
-
-
+    // Удаляем лайк
+    deleteLike(cardId) {
+      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+        .then(res => this._parseResponse(res));
+    }
 
 }

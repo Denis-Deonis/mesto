@@ -90,23 +90,23 @@
             <label class="popup__label" >
               <input
                 class="popup__input popup__input_type_title"
-                name="titleInput"
+                name="name"
                 placeholder="Название"
                 required type="text"
                 minlength="2"
                 maxlength="30"
               >
-              <span class="titleInput-error error"></span>
+              <span class="name-error error"></span>
             </label>
             <label class="popup__label">
               <input
                 class="popup__input popup__input_type_image-link"
-                name="imageInput"
+                name="link"
                 type="url"
                 placeholder="Ссылка на картинку"
                 required
               >
-              <span class="imageInput-error error"></span>
+              <span class="link-error error"></span>
             </label>
             <button class="popup__save" type="submit">Сохранить</button>
           </fieldset>
@@ -121,7 +121,7 @@
           <fieldset class="popup__content">
             <h2 class="popup__title">Обновить аватар</h2>
             <label class="popup__label">
-              <input id="nameInputAvatar"
+              <input id="avatar"
                 class="popup__input popup__input_link-avatar"
                 name="avatar"
                 type="url"
@@ -140,10 +140,10 @@
     <div class="popup popup_type_confirmation">
       <div class="popup__confirmation-container">
         <button class="popup__close-button" type="button"></button>
-        <form class="popup__form">
+        <form  name="delete-form" class="popup__form">
           <fieldset class="popup__content">
             <h2 class="popup__title popup__title_margin">Вы уверены?</h2>
-            <button class="popup__save popup__save_margin" type="submit">Да</button>
+            <button class="popup__save popup__save_margin" type="button">Да</button>
           </fieldset>
         </form>
       </div>

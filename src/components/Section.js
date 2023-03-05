@@ -12,7 +12,7 @@ export class Section {
     this._container.prepend(element);
   }
 
- 
+
   renderItems(items) {
 
     items.forEach((item) => {

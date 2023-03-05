@@ -1,7 +1,8 @@
 export class Card {
 
   constructor( value, template, handleCardClick, userId,
-    like, dislike, deleteCard) {
+    like, dislike, handleRemoveButtonClick) {
+
     this._title = value.name;
     this._link  = value.link;
     this._likes = value.likes;
@@ -12,29 +13,24 @@ export class Card {
     this._userId = userId;
     this._like = like;
     this._dislike = dislike;
-    this._deleteCard = deleteCard;
+    this._handleRemoveButtonClick = handleRemoveButtonClick;
   }
 
-  like() {
-    this._likeButton.classList.add("element__like-button_active");
-  }
 
-  dislike() {
-    this._likeButton.classList.remove("element__like-button_active");
+  handleLikeCard(value) {
+    this._likes = value.likes;
+    this._countLikeElement.textContent = this._likes.length;
+    this._likeButton.classList.toggle("element__like-button_active");
   }
 
   _userLiked() {
     this._likes.forEach((elementId) => {
       if (elementId._id === this._userId) {
-        this.like()
+        this._likeButton.classList.add("element__like-button_active");
       } else {
-        this.dislike()
+        this._likeButton.classList.remove("element__like-button_active");
       }
     })
-  }
-
-  likesCount(res) {
-    this._likesCount.textContent = `${res.likes.length}`
   }
 
 
@@ -42,19 +38,27 @@ export class Card {
     return document.querySelector(this._templateContainer).content.querySelector('.element').cloneNode(true);
   }
 
-  _toggleLike(evt) {
-    evt.target.classList.toggle('element__like-button_active')
+  _toggleLike() {
+    if (this._likeButton.classList.contains('element__like-button_active')) {
+      this._dislike(this._id );
+    } else {
+      this._like(this._id );
+    }
   }
 
-  _deleteCard() {
+
+  removeCard() {
     this._cardElement.remove();
-    this._element = null;
+    this._handleRemoveButtonClick(this._id );
+    // this._cardElement = null;
   }
 
 
   _setEventListeners() {
-    this._cardElement.querySelector('.element__trash').addEventListener('click', ()=> this._deleteCard());
-    this._cardElement.querySelector('.element__like-button').addEventListener('mousedown', (evt)=> this._toggleLike(evt))
+    this._cardElement.querySelector('.element__trash').addEventListener('click',  () => {
+      this._handleRemoveButtonClick();
+    }  );
+    this._cardElement.querySelector('.element__like-button').addEventListener('mousedown', ()=> this._toggleLike());
     this._cardsElementImage.addEventListener('click', ()=> this._handleCardClick(this._link,  this._title));
   }
 
