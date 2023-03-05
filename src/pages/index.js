@@ -67,25 +67,27 @@ function createCard(value, template) {
     },
     (cardId) => {
       popupConfirmation.open();
-
-      popupConfirmation.submitCallback( () => {
-        api.deleteCard(cardId)
+      popupConfirmation.submitCallback(() => {
+        const id = card._id
+        console.log(card._id)
+        console.log(id)
+        api.deleteCard(id)
           .then(() => {
             popupConfirmation.close();
-            card.removeCard();
+            card.deleteCard();
           })
           .catch((err) => {
             console.log(`Ошибка: ${err}`);
           });
-      }  );
-    },
+      });
+    }
   );
   return card.generateCard();
 };
 
 const popupConfirmation = new PopupConfirmation(
-  popupConfirmationDelete
-  );
+  popupConfirmationDelete  );
+
 popupConfirmation.setEventListeners();
 
 const cardList = new Section(
