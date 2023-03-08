@@ -65,16 +65,14 @@ function createCard(value, template) {
           console.log(`Ошибка: ${err}`);
         });
     },
-    (cardId) => {
+    () => {
       popupConfirmation.open();
       popupConfirmation.submitCallback(() => {
-        const id = card._id
-        console.log(card._id)
-        console.log(id)
+        const id = card.getCardId();
         api.deleteCard(id)
           .then(() => {
             popupConfirmation.close();
-            card.deleteCard();
+            card.removeCard();
           })
           .catch((err) => {
             console.log(`Ошибка: ${err}`);
@@ -85,9 +83,7 @@ function createCard(value, template) {
   return card.generateCard();
 };
 
-const popupConfirmation = new PopupConfirmation(
-  popupConfirmationDelete  );
-
+const popupConfirmation = new PopupConfirmation(popupConfirmationDelete);
 popupConfirmation.setEventListeners();
 
 const cardList = new Section(
@@ -105,6 +101,7 @@ const popupAvatar = new PopupWithForm(
     api.updateProfileAvatar(data)
       .then((data) => {
         avatar.src = data.avatar;
+        userInfo.setUserAvatar({ userAvatarLink: data.avatar });
         popupAvatar.close();
       })
       .catch((err) => {

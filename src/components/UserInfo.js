@@ -22,5 +22,9 @@ export class UserInfo {
     this._avatar.src = data.avatar;
   }
 
+  setUserAvatar({ userAvatarLink }) {
+    this._avatar.src = userAvatarLink;
+  }
+
 
 }

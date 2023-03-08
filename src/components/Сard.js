@@ -16,7 +16,7 @@ export class Card {
     this._handleRemoveButtonClick = handleRemoveButtonClick;
   }
 
-geiID() {
+  getCardId() {
   return this._id;
 }
 
@@ -37,7 +37,7 @@ geiID() {
   }
 
   _hasDeleteBtn() {
-    if (this._id !== this._ownerId) {
+    if (this._userId !== this._ownerId) {
       this._deleteBtn.remove();
     }
   }

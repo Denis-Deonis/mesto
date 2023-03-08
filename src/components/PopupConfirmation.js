@@ -4,6 +4,7 @@ export class PopupConfirmation extends Popup {
   constructor(popup) {
     super(popup)
     this._popupForm = this._popup.querySelector(".popup__form");
+    
   }
 
   submitCallback(handleSubmit) {
