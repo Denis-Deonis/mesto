@@ -32,6 +32,7 @@ const api = new Api({
   Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then(([initialCards, userData]) => {
     userInfo.setUserInfo(userData);
+    userInfo.setUserAvatar({ userAvatarLink: userData.avatar });
     userId = userData._id;
     cardList.renderItems(initialCards);
   })
@@ -67,7 +68,7 @@ function createCard(value, template) {
     },
     () => {
       popupConfirmation.open();
-      popupConfirmation.submitCallback(() => {
+      popupConfirmation.setSubmitCallback(() => {
         const id = card.getCardId();
         api.deleteCard(id)
           .then(() => {
@@ -100,7 +101,6 @@ const popupAvatar = new PopupWithForm(
     popupAvatar.loading(true);
     api.updateProfileAvatar(data)
       .then((data) => {
-        avatar.src = data.avatar;
         userInfo.setUserAvatar({ userAvatarLink: data.avatar });
         popupAvatar.close();
       })
@@ -163,20 +163,19 @@ buttonEdit.addEventListener('click', () => {
     popupEdit.open();
     popupEdit.setInputValue(userInfo.getUserInfo());
     profileFormValidation.resetValidation();
-    profileFormValidation.disableSubmitButton();
-  },
-  false
+    // profileFormValidation.disableSubmitButton();
+  }
 );
 
 buttonUpdateAvatar.addEventListener('click', () => {
     popupAvatar.open();
-    validatorFormUpdateAvatar.disableSubmitButton();
+    validatorFormUpdateAvatar.resetValidation();
   }
 );
 
 buttonAddFoto.addEventListener('click', ()=> {
   formNewCardFormValidation.resetValidation();
-  formNewCardFormValidation.disableSubmitButton();
+  // formNewCardFormValidation.disableSubmitButton();
   popupAdd.open();
 });
 

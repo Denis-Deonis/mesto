@@ -21,8 +21,9 @@ export class FormValidator {
 
   _toggleButtonState() {
     if (this._hasInvalidInput(this._inputList)) {
-      this._buttonElement.classList.add(this._inactiveButtonClass);
-      this._buttonElement.disabled = true;
+      // this._buttonElement.classList.add(this._inactiveButtonClass);
+      // this._buttonElement.disabled = true;
+      this.disableSubmitButton();
     } else {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.disabled = false;
@@ -30,14 +31,14 @@ export class FormValidator {
   }
 
   _showInputError(inputElement) {
-    const errorElement = document.querySelector(`.${inputElement.name}-error`);
+    const errorElement = document.querySelector(`.${inputElement.id}-error`);
     errorElement.classList.add(this._errorClass);
     errorElement.textContent = inputElement.validationMessage;
     inputElement.classList.add(this._inputErrorClass);
   }
 
   _hideInputError(inputElement) {
-    const errorElement = document.querySelector(`.${inputElement.name}-error`);
+    const errorElement = document.querySelector(`.${inputElement.id}-error`);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = "";
     inputElement.classList.remove(this._inputErrorClass);

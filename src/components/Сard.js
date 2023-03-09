@@ -58,8 +58,6 @@ export class Card {
 
   removeCard() {
     this._cardElement.remove();
-    // this._handleRemoveButtonClick();
-    // this._cardElement = null;
   }
 
 
@@ -67,7 +65,7 @@ export class Card {
     this._deleteBtn.addEventListener('click',  () => {
       this._handleRemoveButtonClick();
     }  );
-    this._likeButton .addEventListener('mousedown', ()=> this._toggleLike());
+    this._likeButton .addEventListener('click', ()=> this._toggleLike());
     this._cardsElementImage.addEventListener('click', ()=> this._handleCardClick(this._link,  this._title));
   }
 
